@@ -8,7 +8,8 @@ class Student(models.Model):
     email = models.CharField(max_length=32)
     cellphone = models.CharField(max_length=14)
     birth_date = models.DateField(auto_now=False, auto_now_add=False)
-    registration = models.CharField(max_length=8, primary_key=True)
+    registration = models.BigAutoField(primary_key=True)
+    password = models.CharField(max_length=128)
 
     def __str__(self):
         return self.name
