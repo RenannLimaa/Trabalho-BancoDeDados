@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from professor.models import Professor
@@ -81,3 +81,8 @@ def user_login(request):
         form = LoginForm()
 
     return render(request, "authentication/login.html", {"form": form})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect(reverse("login"))
