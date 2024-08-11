@@ -1,3 +1,29 @@
-<h1> estudante </h1>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudante</title>
+</head>
+<body>
+    <h1>Estudante {{ student.name }}</h1>
 
-<p><a href="{% url 'logout' %}">Sair</a></p>
+    {% if messages %}
+    <div id="messages">
+        {% for message in messages %}
+        <div class="message {{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <a href="{% url 'logout' %}">Sair</a> <br>
+    <form method="POST" action="{% url 'remove_student' %}">
+        {% csrf_token %}
+        <button type="submit"> Excluir conta </button> <br>
+    </form>
+    <a href="#"> Editar dados pessoais </a> <br>
+    
+</body>
+</html>
