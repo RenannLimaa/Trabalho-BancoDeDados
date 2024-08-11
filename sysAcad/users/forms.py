@@ -43,3 +43,40 @@ class LoginForm(forms.Form):
     role = forms.ChoiceField(label="Tipo", choices=ROLE_CHOICES, widget=forms.RadioSelect)
     email = forms.EmailField(label="Email", max_length=32)
     password = forms.CharField(label="Senha", widget=forms.PasswordInput)
+
+
+class EditInfoForm(forms.Form):
+    name = forms.CharField(
+        label="Nome completo",
+        max_length=64,
+        required=False
+    )
+    email = forms.EmailField(
+        label="Email",
+        max_length=32,
+        required=False
+    )
+    cellphone = forms.CharField(
+        label="Celular",
+        max_length=14,
+        required=False
+    )
+    password = forms.CharField(
+        label="Senha",
+        widget=forms.PasswordInput,
+        required=False
+    )
+    password_confirm = forms.CharField(
+        label="Confirmar Senha",
+        widget=forms.PasswordInput,
+        required=False
+    )
+    birth_date = forms.DateField(
+        label="Data de nascimento",
+        widget=forms.DateInput(
+            attrs={
+                "type": "date"
+            }
+        ),
+        required=False
+    )
