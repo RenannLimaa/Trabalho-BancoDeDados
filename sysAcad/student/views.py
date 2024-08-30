@@ -1,36 +1,30 @@
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from users.forms import EditInfoForm
-
 from .models import Student
 
 # Create your views here.
-
-
 @login_required
-def home(request):
-    student = Student.objects.get(user=request.user)
+def student_home(request):
+    student = get_object_or_404(Student, user=request.user)
     return render(request, "student/home.html", {"student": student})
 
 
+@login_required
 def remove_student(request):
     if request.method == "POST":
         try:
-            student = Student.objects.get(user=request.user)
+            student = get_object_or_404(Student, user=request.user)
             user = student.user
             user.delete()
-            messages.success(request, "Conta excluída com sucesso")
+            messages.success(request, "Conta excluída com sucesso.")
             return redirect("login")
         except Student.DoesNotExist:
-            messages.error(request, "Erro ao excluir a conta")
-            return redirect(reverse("student_home"))
-
-    else:
-        messages.error(request, "else: Erro ao excluir a conta")
-        return redirect(reverse("student_home"))
+            messages.error(request, "Erro ao excluir a conta.")
+            return redirect("student_home")
 
 
 def edit_student(request):
@@ -64,7 +58,7 @@ def edit_student(request):
             student.save()
             login(request, user)
 
-            messages.success(request, "Informações atualizadas com sucesso.")
+            messages.success(request, "Informações atualizadas com sucesso!")
             return redirect(reverse("student_home"))
 
         else:

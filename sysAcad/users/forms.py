@@ -69,7 +69,7 @@ class EditInfoForm(forms.Form):
     password_confirm = forms.CharField(
         label="Confirmar Senha",
         widget=forms.PasswordInput,
-        required=False
+        required=True
     )
     birth_date = forms.DateField(
         label="Data de nascimento",

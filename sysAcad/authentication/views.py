@@ -5,6 +5,7 @@ from professor.models import Professor
 from student.models import Student
 from users.forms import LoginForm, StudentProfessorForm
 from users.models import User
+from django.contrib import messages
 
 
 def user_register(request):
@@ -76,7 +77,8 @@ def user_login(request):
                 login(request, user)
                 return redirect(reverse("professor_home"))
             else:
-                form.add_error(None, "Invalid credentials or role")
+                messages.error(request, "Email ou senha incorreto.")
+                return redirect("login")
     else:
         form = LoginForm()
 
