@@ -1,18 +1,10 @@
 from django.db import models
 
-# Create your models here.
-class Curso(models.Model):
-    idcurso = models.AutoField(primary_key=True)
-    nome = models.CharField(max_length=255)
-    duracao = models.CharField(max_length=100)  
+
+class Course(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=128)
+    duration = models.CharField(max_length=32)
 
     def __str__(self):
-        return self.nome
-    
-class Disciplina(models.Model):
-    idDisciplina = models.AutoField(primary_key=True)
-    nome = models.CharField(max_length=255)
-    quantidadeVagas = models.PositiveIntegerField()
-
-    def __str__(self):
-        return self.nome
+        return self.name
