@@ -20,5 +20,9 @@ class Classes(models.Model):
     subject = models.ForeignKey("subject.Subject", on_delete=models.CASCADE, related_name="classes")
     professor = models.ForeignKey("professor.Professor", on_delete=models.CASCADE, related_name="classes")
 
+    class Meta:
+        verbose_name = "Class"
+        verbose_name_plural = "Classes"
+
     def __str__(self):
         return self.classroom
