@@ -1,4 +1,5 @@
 from django import forms
+from course.models import Course
 
 
 class StudentProfessorForm(forms.Form):
@@ -13,6 +14,12 @@ class StudentProfessorForm(forms.Form):
     cellphone = forms.CharField(label="Celular", max_length=14)
     password = forms.CharField(label="Senha", widget=forms.PasswordInput)
     password_confirm = forms.CharField(label="Confirmar Senha", widget=forms.PasswordInput)
+
+    course = forms.ModelChoiceField(
+            queryset=Course.objects.all(),
+            label="Curso",
+            required=True
+    )
 
     birth_date = forms.DateField(
         label="Data de nascimento",

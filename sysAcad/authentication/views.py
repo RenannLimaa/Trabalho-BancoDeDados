@@ -18,6 +18,7 @@ def user_register(request):
             cellphone = form.cleaned_data.get("cellphone")
             password = form.cleaned_data.get("password")
             birth_date = form.cleaned_data.get("birth_date")
+            course = form.cleaned_data.get("course")
 
             if role == "student":
                 user = User.objects.create_user(
@@ -33,6 +34,7 @@ def user_register(request):
                     email=email,
                     cellphone=cellphone,
                     birth_date=birth_date,
+                    course=course
                 )
                 student.save()
 
