@@ -10,7 +10,7 @@ class Student(models.Model):
     cellphone = models.CharField(max_length=14)
     birth_date = models.DateField(auto_now=False, auto_now_add=False)
     course = models.ForeignKey("course.Course", related_name="students", on_delete=models.CASCADE)
-    subjects = models.ManyToManyField("subject.Subject", related_name="students")
+    classes = models.ManyToManyField("classes.Classes", related_name="students")
 
     def get_age(self):
         today = date.today()
