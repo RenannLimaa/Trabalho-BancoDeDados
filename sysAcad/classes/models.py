@@ -21,7 +21,7 @@ class Day(models.Model):
 class Classes(models.Model):
     id = models.AutoField(primary_key=True)
     classroom = models.CharField(max_length=32)
-    vacancies = models.PositiveIntegerField(default=10)
+    vacancies = models.PositiveIntegerField()
 
     start_time = models.TimeField()
     end_time = models.TimeField()
