@@ -3,13 +3,13 @@ from django.db import models
 
 class Day(models.Model):
     DAYS_OF_WEEK = [
-        ('Monday', 'Monday'),
-        ('Tuesday', 'Tuesday'),
-        ('Wednesday', 'Wednesday'),
-        ('Thursday', 'Thursday'),
-        ('Friday', 'Friday'),
-        ('Saturday', 'Saturday'),
-        ('Sunday', 'Sunday'),
+        ('Monday', 'Segunda-feira'),
+        ('Tuesday', 'Terça-feira'),
+        ('Wednesday', 'Quarta-feira'),
+        ('Thursday', 'Quinta-feira'),
+        ('Friday', 'Quinta-feira'),
+        ('Saturday', 'Sábado'),
+        ('Sunday', 'Domingo'),
     ]
 
     name = models.CharField(max_length=9, choices=DAYS_OF_WEEK, unique=True)
