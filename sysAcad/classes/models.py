@@ -7,7 +7,7 @@ class Day(models.Model):
         ('Tuesday', 'Terça-feira'),
         ('Wednesday', 'Quarta-feira'),
         ('Thursday', 'Quinta-feira'),
-        ('Friday', 'Quinta-feira'),
+        ('Friday', 'Sexta-feira'),
         ('Saturday', 'Sábado'),
         ('Sunday', 'Domingo'),
     ]
