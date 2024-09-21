@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from users.forms import EditInfoForm
 from .models import Student
+from classes.models import Classes
 
 # Create your views here.
 @login_required
@@ -74,3 +75,32 @@ def edit_student(request):
             }
         )
     return render(request, "student/edit_info.html", {"form": form})
+
+
+def enroll_in_classes(request):
+    student = Student.objects.get(user=request.user)
+
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            try:
+                selected_classes = request.POST.getlist("classes")
+                print(selected_classes)
+
+                for class_id in selected_classes:
+                    classes = Classes.objects.get(id=class_id)
+                    print(classes)
+                    student.classes.add(classes)
+
+                messages.success(request, "Turmas matriculadas com sucesso!")
+                return redirect("class_enrollment")
+
+            except Student.DoesNotExist:
+                messages.error(request, "Estudante não encontrado")
+                return redirect("login")
+
+            except Classes.DoesNotExist:
+                messages.error(request, "Uma ou mais turmas não existe")
+                return redirect("class_enrollment")
+
+    classes = Classes.objects.all()
+    return render(request, "student/class_enrollment.html", {"classes": classes})
