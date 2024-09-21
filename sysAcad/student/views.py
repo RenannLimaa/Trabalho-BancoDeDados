@@ -77,6 +77,7 @@ def edit_student(request):
     return render(request, "student/edit_info.html", {"form": form})
 
 
+@login_required
 def enroll_in_classes(request):
     student = Student.objects.get(user=request.user)
 
@@ -84,11 +85,14 @@ def enroll_in_classes(request):
         if request.user.is_authenticated:
             try:
                 selected_classes = request.POST.getlist("classes")
-                print(selected_classes)
 
                 for class_id in selected_classes:
                     classes = Classes.objects.get(id=class_id)
-                    print(classes)
+
+                    if student.is_enrolled_in_class(classes):
+                        messages.error(request, "Aluno não pode se matricular em mais de uma turma da mesma disciplina")
+                        return redirect("class_enrollment")
+
                     student.classes.add(classes)
 
                 messages.success(request, "Turmas matriculadas com sucesso!")
@@ -104,3 +108,31 @@ def enroll_in_classes(request):
 
     classes = Classes.objects.all()
     return render(request, "student/class_enrollment.html", {"classes": classes})
+
+
+@login_required
+def remove_classes(request):
+    student = Student.objects.get(user=request.user)
+
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            try:
+                selected_classes = request.POST.getlist("classes")
+
+                for class_id in selected_classes:
+                    classes = Classes.objects.get(id=class_id)
+                    student.classes.remove(classes)
+
+                messages.success(request, "Turmas removidas com sucesso!")
+                return redirect("my_classes")
+
+            except Student.DoesNotExist:
+                messages.error(request, "Estudante não encontrado")
+                return redirect("login")
+
+            except Classes.DoesNotExist:
+                messages.error(request, "Uma ou mais turmas não existe")
+                return redirect("my_classes")
+
+    classes = student.classes.all()
+    return render(request, "student/my_classes.html", {"classes": classes})
