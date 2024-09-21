@@ -17,5 +17,8 @@ class Student(models.Model):
         age = (today.year - self.birth_date.year - ((today.month, today.day) < (self.birth_date.month, self.birth_date.day)))
         return age
 
+    def is_enrolled_in_class(self, class_obj):
+        return self.classes.filter(subject=class_obj.subject).exists()
+
     def __str__(self):
         return self.name
