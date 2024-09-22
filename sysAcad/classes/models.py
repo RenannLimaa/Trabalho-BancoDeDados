@@ -35,4 +35,4 @@ class Classes(models.Model):
         verbose_name_plural = "Classes"
 
     def __str__(self):
-        return self.classroom
+        return f"{self.subject} - {self.professor}"
