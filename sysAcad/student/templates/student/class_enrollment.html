@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrícula de Turmas</title>
+    <meta name="description" content="Escolha as turmas nas quais você deseja se matricular.">
+    <meta name="keywords" content="matrícula, turmas, aulas">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'student/css/base.css' %}">   
+    <link rel="stylesheet" href="{% static 'student/css/class_enrollment.css' %}">   
+</head>
+<body>
 
 {% if messages %}
     <div>
@@ -9,28 +23,32 @@
     </div>
 {% endif %}
 
+<main>
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+            <h3>Selecione as turmas</h3>
+            {% for class in classes %}
+                <div>
+                    <input type="checkbox" id="class_{{ class.id }}" name="classes" value="{{ class.id }}">
+                    <label for="class_{{class.id }}">{{ class.subject.name }}</label>
+                    <label for="class_{{class.id }}">{{ class.professor.name }}</label>
+                    <label for="class_{{class.id }}">Sala: {{ class.classroom }}</label><br>
 
-<form method="POST">
-    {% csrf_token %}
-    <div>
-        <h3>Selecione as turmas</h3>
-        {% for class in classes %}
-            <div>
-                <input type="checkbox" id="class_{{ class.id }}" name="classes" value="{{ class.id }}">
-                <label for="class_{{class.id }}">{{ class.subject.name }}</label>
-                <label for="class_{{class.id }}">{{ class.professor.name }}</label>
-                <label for="class_{{class.id }}">Sala: {{ class.classroom }}</label><br>
+                    <label for="class_{{class.id }}">Dias: 
+                        {% for day in class.days_of_week.all %}
+                            {{ day.get_name_display }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </label><br>
 
-                <label for="class_{{class.id }}">Dias: 
-                    {% for day in class.days_of_week.all %}
-                        {{ day.get_name_display }}{% if not forloop.last %}, {% endif %}
-                    {% endfor %}
-                </label><br>
+                    <label for="class_{{class.id }}">Horário: {{ class.start_time }} - {{ class.end_time }}</label>
+                </div>
+            {% endfor %}
+        </div>
 
-                <label for="class_{{class.id }}">Horário: {{ class.start_time }} - {{ class.end_time }}</label>
-            </div>
-        {% endfor %}
-    </div>
+        <button type="submit" class="btn btn-primary">Matricular-se</button>
+    </form>
+</main>
 
-    <button type="submit" class="btn btn-primary">Matricular-se</button>
-</form>
+</body>
+</html>
