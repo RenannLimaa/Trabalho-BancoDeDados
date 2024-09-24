@@ -1,0 +1,113 @@
+:root {
+    --dark-blue: #00308F; /* Main color */
+    --white: #f4f4f4;    /* Background color */
+}
+
+* {
+    font-family: arial;
+}
+
+body {
+    margin: 0;
+}
+
+.header img {
+    width: 16rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    color: var(--white);
+    background-color: var(--dark-blue);
+
+    top: 0;
+    left: 0;
+    padding: 20px 50px;
+}
+
+.header ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.header ul li {
+    display: inline-block;
+    font-weight: bold;
+}
+
+.header a {
+    color: var(--white); /* White text for links */
+    text-decoration: none; /* Remove underline from links */
+    margin: 0 15px; /* Space between links */
+}
+
+.header a:hover {
+    text-decoration: underline; /* Optional: underline on hover */
+}
+
+main {
+    margin: 6px;
+    padding: 16px;
+    background-color: #efefef;
+    border: 0.5px solid #cccccc;
+}
+
+.enrolled-subjects .title {
+    color: #0a2351;
+    text-transform: uppercase;
+}
+
+#student-info-table .bold {
+    font-weight: bold; /* Make text bold */
+}
+
+#student-info-table .uppercase {
+    text-transform: uppercase; 
+}
+
+/* Styling the table */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+.table thead {
+    background-color: var(--dark-blue); /* Using the dark blue color for the header */
+    color: var(--white); /* White text color */
+}
+
+.table thead th {
+    padding: 10px;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.table tbody td {
+    padding: 10px;
+    background-color: var(--white); /* Using white for the row background */
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #e6e6e6; /* A slightly darker grey for alternating rows */
+}
+
+.table tbody tr:hover {
+    background-color: #ccd7eb; /* Light blue for hover effect */
+}
+
+.table tbody td a {
+    color: var(--dark-blue); /* Link color in dark blue */
+    text-decoration: none;
+}
+
+.table tbody td a:hover {
+    text-decoration: underline;
+}
