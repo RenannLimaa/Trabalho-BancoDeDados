@@ -12,6 +12,10 @@ class Student(models.Model):
     course = models.ForeignKey("course.Course", related_name="students", on_delete=models.CASCADE)
     classes = models.ManyToManyField("classes.Classes", related_name="students")
 
+    def get_first_name(self):
+        names = self.name.split()
+        return names[0]
+
     def get_age(self):
         today = date.today()
         age = (today.year - self.birth_date.year - ((today.month, today.day) < (self.birth_date.month, self.birth_date.day)))
