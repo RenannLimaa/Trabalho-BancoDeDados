@@ -16,16 +16,17 @@
         <header class="header">
             <img src="{% static 'student/images/uece-logo.png' %}" alt="Example Image">
 
-            Bem-vindo, {{ student.name }}
-            <nav>
-                <ul>
-                    <li><a href="{% url 'class_enrollment' %}">Realizar Matrícula</a></li>
-                    <li><a href="#historico">Histórico Escolar</a></li>
-                    <li><a href="#grade">Grade Curricular</a></li>
-                    <li><a href="{% url 'edit_student' %}">Dados Pessoais</a></li>
-                </ul>
-            </nav>
+            <p>Bem-vindo, {{ student.get_first_name }} </p>
         </header>
+
+        <nav class="navigation-bar">
+            <ul>
+                <li><a href="{% url 'class_enrollment' %}">Realizar Matrícula</a></li>
+                <li><a href="#historico">Histórico Escolar</a></li>
+                <li><a href="#grade">Grade Curricular</a></li>
+                <li><a href="{% url 'edit_student' %}">Dados Pessoais</a></li>
+            </ul>
+        </nav>
 
         <main>
             <section class="enrolled-subjects">
