@@ -81,10 +81,15 @@ def edit_student(request):
 def enroll_in_classes(request):
     student = Student.objects.get(user=request.user)
 
+
     if request.method == "POST":
         if request.user.is_authenticated:
             try:
                 selected_classes = request.POST.getlist("classes")
+
+                if student.get_number_of_enrolled_classes() > 7:
+                    messages.error(request, "Não é possível se matricular em mais de 7 disciplinas")
+                    return redirect("class_enrollment")
 
                 if not selected_classes:
                     messages.error(request, "Nenhuma turma selecionada")
