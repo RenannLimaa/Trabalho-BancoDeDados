@@ -123,12 +123,16 @@ def remove_classes(request):
             try:
                 selected_classes = request.POST.getlist("classes")
 
+                if not selected_classes:
+                    messages.error(request, "Nenhuma disciplina selecionada")
+                    return redirect("remove_classes")
+
                 for class_id in selected_classes:
                     classes = Classes.objects.get(id=class_id)
                     student.classes.remove(classes)
 
                 messages.success(request, "Turmas removidas com sucesso!")
-                return redirect("my_classes")
+                return redirect("remove_classes")
 
             except Student.DoesNotExist:
                 messages.error(request, "Estudante não encontrado")
@@ -136,7 +140,7 @@ def remove_classes(request):
 
             except Classes.DoesNotExist:
                 messages.error(request, "Uma ou mais turmas não existe")
-                return redirect("my_classes")
+                return redirect("remove_classes")
 
     classes = student.classes.all()
-    return render(request, "student/my_classes.html", {"classes": classes})
+    return render(request, "student/remove_classes.html", {"classes": classes, "student": student})
