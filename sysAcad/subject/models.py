@@ -8,4 +8,4 @@ class Subject(models.Model):
     course = models.ForeignKey("course.Course", on_delete=models.CASCADE, related_name="subjects")
 
     def __str__(self):
-        return self.nome
+        return self.name

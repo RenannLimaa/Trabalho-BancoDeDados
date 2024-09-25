@@ -9,6 +9,10 @@
 <div class="container">
     <form method="POST" class="form-update-account">
         {% csrf_token %}
+        <!-- Exibe erros não relacionados a campos específicos -->
+        <div class="error">
+            {{ form.non_field_errors }}
+        </div>
         <h3>Registre-se</h3><hr>
         <div class="form-group">
             <label for="{{ form.role.id_for_label }}">Tipo</label>
@@ -63,6 +67,9 @@
         </div>
         <div class="form-buttons">
             <button type="submit" class="btn-update">Registrar</button>
+        </div>
+        <div class="form-buttons">
+            <a href="{% url 'login' %}" class="btn-update">Voltar</a>
         </div>
     </form>
 </div>

@@ -1,5 +1,9 @@
 from django import forms
+from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 class StudentProfessorForm(forms.Form):
     ROLE_CHOICES = [
@@ -22,6 +26,12 @@ class StudentProfessorForm(forms.Form):
             }
         )
     )
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise ValidationError("Este email já está em uso. Tente outro.")
+        return email
 
     def clean(self):
         cleaned_data = super().clean()

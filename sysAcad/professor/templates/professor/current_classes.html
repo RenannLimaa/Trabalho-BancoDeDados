@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block 'body' %}
+<h1>Minhas Turmas</h1>
+
+{% if messages %}
+    <div class="alert alert-info">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if current_classes %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Disciplina</th>
+                <th>Horário</th>
+                <th>Sala</th>
+                <th>Vagas</th>
+                <th>Alunos Matriculados</th>
+                <th>Estudantes</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for class in current_classes %}
+                <tr>
+                    <td>{{ class.subject.name }}</td>
+                    <td>{{ class.schedule }}</td>
+                    <td>{{ class.room }}</td>
+                    <td>{{ class.seat_count }}</td>
+                    <td>{{ class.students.count }}</td>
+                    <td>
+                        <a href="{% url 'view_students_in_class' class.id %}" class="btn btn-primary">Ver Estudantes</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Você não está atualmente atribuído a nenhuma turma.</p>
+    <a href="{% url 'professor_home' %}" class="btn btn-primary">Voltar</a>
+{% endif %}
+{% endblock %}
