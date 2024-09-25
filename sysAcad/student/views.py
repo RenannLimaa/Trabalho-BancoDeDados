@@ -74,7 +74,7 @@ def edit_student(request):
                 "birth_date": student.birth_date,
             }
         )
-    return render(request, "student/edit_info.html", {"form": form})
+    return render(request, "student/edit_info.html", {"form": form, "student": student})
 
 
 @login_required
