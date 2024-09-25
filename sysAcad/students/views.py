@@ -1,12 +1,25 @@
-from django.views.generic import G
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
 from .filters import StudentFilter
 from .models import Student
 from .serializers import StudentSerializer
 
 
-class StudentViewSet(GenericViewSet):
-    queryset = Student.objects.all().order_by("-id")
+class StudentList(ListCreateAPIView):
     serializer_class = StudentSerializer
-    filterset_class = StudentFilter
+    queryset = Student.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+    def get_queryset(self):
+        return self.queryset.all()
+
+
+class StudentDetailAPIView(RetrieveUpdateDestroyAPIView):
+    serializer_class = StudentSerializer
+    queryset = Student.objects.all()
+    lookup_field = "id"
+
+    def get_queryset(self):
+        return self.queryset.all()

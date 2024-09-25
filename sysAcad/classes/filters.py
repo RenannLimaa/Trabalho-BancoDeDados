@@ -1,9 +1,9 @@
-from django_filters import BaseFilterSet, CharFilter, NumberFilter
+from django_filters import CharFilter, FilterSet, NumberFilter
 
 from .models import Class
 
 
-class ClassFilter(BaseFilterSet):
+class ClassFilter(FilterSet):
     class Meta:
         model = Class
         fields = ["subject", "room", "schedule", "seat_count"]

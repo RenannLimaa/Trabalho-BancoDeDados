@@ -1,13 +1,13 @@
-from django_filters import BaseFilterSet, CharFilter, NumberFilter
+from django_filters import CharFilter, FilterSet, NumberFilter
 
 from .models import Student
 
 
-class StudentFilter(BaseFilterSet):
+class StudentFilter(FilterSet):
     class Meta:
         model = Student
-        fields = ["name", "email", "celphone"]
-        search_fields = ["name", "email", "celphone"]
+        fields = ["name", "email", "cellphone"]
+        search_fields = ["name", "email", "cellphone"]
 
     name = CharFilter(lookup_expr="icontains")
 

@@ -1,9 +1,9 @@
-from django_filters import BaseFilterSet, CharFilter
+from django_filters import CharFilter, FilterSet
 
 from .models import Course
 
 
-class CourseFilter(BaseFilterSet):
+class CourseFilter(FilterSet):
     class Meta:
         model = Course
         fields = ["name", "description"]

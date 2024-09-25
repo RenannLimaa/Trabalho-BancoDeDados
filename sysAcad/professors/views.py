@@ -1,12 +1,25 @@
-from django.views.generic import G
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
 from .filters import ProfessorFilter
 from .models import Professor
 from .serializers import ProfessorSerializer
 
 
-class ProfessorViewSet(GenericViewSet):
-    queryset = Professor.objects.all().order_by("-id")
+class ProfessorList(ListCreateAPIView):
     serializer_class = ProfessorSerializer
-    filterset_class = ProfessorFilter
+    queryset = Professor.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+    def get_queryset(self):
+        return self.queryset.all()
+
+
+class ProfessorDetailAPIView(RetrieveUpdateDestroyAPIView):
+    serializer_class = ProfessorSerializer
+    queryset = Professor.objects.all()
+    lookup_field = "id"
+
+    def get_queryset(self):
+        return self.queryset.all()

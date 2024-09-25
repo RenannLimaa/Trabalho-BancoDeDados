@@ -1,9 +1,9 @@
-from django_filters import BaseFilterSet, NumberFilter
+from django_filters import FilterSet, NumberFilter
 
 from .models import Grade
 
 
-class GradeFilter(BaseFilterSet):
+class GradeFilter(FilterSet):
     class Meta:
         model = Grade
         fields = ["student", "subject", "grade1", "grade2", "grade3"]

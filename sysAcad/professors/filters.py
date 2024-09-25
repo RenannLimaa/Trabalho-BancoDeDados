@@ -1,16 +1,16 @@
-from django_filters import BaseFilterSet, CharFilter, NumberFilter
+from django_filters import CharFilter, FilterSet, NumberFilter
 
 from .models import Professor
 
 
-class ProfessorFilter(BaseFilterSet):
+class ProfessorFilter(FilterSet):
     class Meta:
         model = Professor
-        fields = ["name", "email", "celphone"]
-        search_fields = ["name", "email", "celphone"]
+        fields = ["name", "email", "cellphone"]
+        search_fields = ["name", "email", "cellphone"]
 
     name = CharFilter(lookup_expr="icontains")
 
     email = CharFilter(lookup_expr="icontains")
 
-    cellphone = NumberFilter
+    cellphone = NumberFilter()

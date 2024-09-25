@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-5cdnp*&$w9z=oa-iylbr6m-uf1nqtl4gd+b$g0nd-$ux9eb6^q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["0.0.0.0"]
 
 
 # Application definition
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "classes",
     "grades",
     "drf_spectacular",
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
@@ -82,12 +83,8 @@ WSGI_APPLICATION = "sysacad.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "bdados",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
-        "HOST": "localhost",
-        "PORT": "5432",
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
