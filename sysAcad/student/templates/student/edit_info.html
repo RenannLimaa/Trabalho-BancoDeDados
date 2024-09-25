@@ -1,59 +1,96 @@
-{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Atualize suas informações pessoais no Sistema de Gestão Acadêmica.">
+        <meta name="keywords" content="gestão acadêmica, atualizar dados, excluir conta, formulário">
+        <meta name="author" content="SysAcad">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Atualizar Dados - SysAcad</title>
 
-{% block 'head' %}
-    <link rel="stylesheet" href="{% static 'student/css/student.css' %}">
-{% endblock %}
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'student/css/edit_info.css' %}">
+    </head>
+    <body>
+        <header class="header">
+            <img src="{% static 'student/images/uece-logo.png' %}" alt="Logo UECE">
 
-{% block 'body' %}
-<div class="container">
-    <form method="POST" class="form-update-account">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="{{ form.name.id_for_label }}">Nome completo</label>
-            {{ form.name }}
-            {% if form.name.errors %}
-                <div class="error">{{ form.name.errors }}</div>
-            {% endif %}
+            <p>Bem-vindo, {{ student.get_first_name }} </p>
+        </header>
+
+        <nav class="navigation-bar">
+            <ul>
+                <li><a href="{% url 'student_home' %}">Home</a></li>
+            </ul>
+        </nav>
+
+        <div class="container">
+            <div class="form-header">
+                <h1>Atualizar Dados</h1>
+            </div>
+
+            <form method="POST" class="form-update-account">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="{{ form.name.id_for_label }}">Nome completo</label>
+                    {{ form.name }}
+                    {% if form.name.errors %}
+                        <div class="error">{{ form.name.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="student_id">Matrícula</label>
+                    <input type="text" id="student_id" value="{{ student.user.id }}" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.email.id_for_label }}">Email</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="error">{{ form.email.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.cellphone.id_for_label }}">Celular</label>
+                    {{ form.cellphone }}
+                    {% if form.cellphone.errors %}
+                        <div class="error">{{ form.cellphone.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.password.id_for_label }}">Senha</label>
+                    {{ form.password }}
+                    {% if form.password.errors %}
+                        <div class="error">{{ form.password.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.password_confirm.id_for_label }}">Confirmar Senha</label>
+                    {{ form.password_confirm }}
+                    {% if form.password_confirm.errors %}
+                        <div class="error">{{ form.password_confirm.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.birth_date.id_for_label }}">Data de nascimento</label>
+                    {{ form.birth_date }}
+                    {% if form.birth_date.errors %}
+                        <div class="error">{{ form.birth_date.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="btn-update">Atualizar dados</button>
+                    <a href="{% url 'remove_student' %}" class="btn-remove-account">Excluir conta</a>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="{{ form.email.id_for_label }}">Email</label>
-            {{ form.email }}
-            {% if form.email.errors %}
-                <div class="error">{{ form.email.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.cellphone.id_for_label }}">Celular</label>
-            {{ form.cellphone }}
-            {% if form.cellphone.errors %}
-                <div class="error">{{ form.cellphone.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.password.id_for_label }}">Senha</label>
-            {{ form.password }}
-            {% if form.password.errors %}
-                <div class="error">{{ form.password.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.password_confirm.id_for_label }}">Confirmar Senha</label>
-            {{ form.password_confirm }}
-            {% if form.password_confirm.errors %}
-                <div class="error">{{ form.password_confirm.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.birth_date.id_for_label }}">Data de nascimento</label>
-            {{ form.birth_date }}
-            {% if form.birth_date.errors %}
-                <div class="error">{{ form.birth_date.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-buttons">
-            <button type="submit" class="btn-update">Atualizar dados</button>
-            <a href="{% url 'remove_student' %}" class="btn-remove-account">Excluir conta</a>
-        </div>
-    </form>
-</div>
-{% endblock %}
+    </body>
+</html>
