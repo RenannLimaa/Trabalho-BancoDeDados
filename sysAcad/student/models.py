@@ -24,5 +24,9 @@ class Student(models.Model):
     def is_enrolled_in_class(self, class_obj):
         return self.classes.filter(subject=class_obj.subject).exists()
 
+    def get_number_of_enrolled_classes(self):
+        return self.classes.count()
+
+
     def __str__(self):
         return self.name
