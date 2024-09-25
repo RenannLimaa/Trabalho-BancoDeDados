@@ -86,6 +86,10 @@ def enroll_in_classes(request):
             try:
                 selected_classes = request.POST.getlist("classes")
 
+                if not selected_classes:
+                    messages.error(request, "Nenhuma turma selecionada")
+                    return redirect("class_enrollment")
+
                 for class_id in selected_classes:
                     classes = Classes.objects.get(id=class_id)
 
@@ -107,7 +111,7 @@ def enroll_in_classes(request):
                 return redirect("class_enrollment")
 
     classes = Classes.objects.all()
-    return render(request, "student/class_enrollment.html", {"classes": classes})
+    return render(request, "student/class_enrollment.html", {"classes": classes, "student": student})
 
 
 @login_required
