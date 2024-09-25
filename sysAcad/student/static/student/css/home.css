@@ -73,6 +73,16 @@ main {
     text-transform: uppercase;
 }
 
+.alert-error {
+    font-weight: bold;
+    color: #d9534f;
+}
+
+.alert-success {
+    font-weight: bold;
+    color: #4CAF50;
+}
+
 #student-info-table .bold {
     font-weight: bold; /* Make text bold */
 }
@@ -123,4 +133,32 @@ main {
 
 .table tbody td a:hover {
     text-decoration: underline;
+}
+
+.table, .table th, .table td {
+    border: 1px solid #000; 
+    border-collapse: collapse; 
+}
+
+.table th, .table td {
+    border: 1px solid #cccccc; 
+}
+
+.btn {
+    color: white;
+    outline: none;
+    font-weight: bold;
+    font-size: 16px;
+    background-color: var(--dark-blue);
+
+    border-radius: 8px;
+
+    padding: 8px 8px;
+    width: 10em;
+
+    cursor: pointer;
+}
+
+.btn:hover {
+    transform: scale(1.1);
 }

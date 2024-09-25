@@ -1,54 +1,95 @@
-<!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matrícula de Turmas</title>
-    <meta name="description" content="Escolha as turmas nas quais você deseja se matricular.">
-    <meta name="keywords" content="matrícula, turmas, aulas">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Sistema de Gestão Acadêmica para alunos.">
+        <meta name="keywords" content="gestão acadêmica, matrícula, histórico escolar">
+        <meta name="author" content="SysCad">
+        <title>Matrícula de turmas</title>
 
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'student/css/base.css' %}">   
-    <link rel="stylesheet" href="{% static 'student/css/class_enrollment.css' %}">   
-</head>
-<body>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'student/css/home.css' %}">
+    </head>
+    <body>
+        <header class="header">
+            <img src="{% static 'student/images/uece-logo.png' %}" alt="Logo UECE">
 
-{% if messages %}
-    <div>
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    </div>
-{% endif %}
+            <p>Bem-vindo, {{ student.get_first_name }} </p>
+        </header>
 
-<main>
-    <form method="POST">
-        {% csrf_token %}
-        <div>
-            <h3>Selecione as turmas</h3>
-            {% for class in classes %}
-                <div>
-                    <input type="checkbox" id="class_{{ class.id }}" name="classes" value="{{ class.id }}">
-                    <label for="class_{{class.id }}">{{ class.subject.name }}</label>
-                    <label for="class_{{class.id }}">{{ class.professor.name }}</label>
-                    <label for="class_{{class.id }}">Sala: {{ class.classroom }}</label><br>
+        <nav class="navigation-bar">
+            <ul>
+                <li><a href="{% url 'student_home' %}">Home</a></li>
+            </ul>
+        </nav>
 
-                    <label for="class_{{class.id }}">Dias: 
-                        {% for day in class.days_of_week.all %}
-                            {{ day.get_name_display }}{% if not forloop.last %}, {% endif %}
-                        {% endfor %}
-                    </label><br>
+        <main>
+            <section class="enrolled-subjects">
 
-                    <label for="class_{{class.id }}">Horário: {{ class.start_time }} - {{ class.end_time }}</label>
-                </div>
-            {% endfor %}
-        </div>
+                <h3 class="title">Turmas Disponíveis</h4>
 
-        <button type="submit" class="btn btn-primary">Matricular-se</button>
-    </form>
-</main>
+                <table id="student-info-table">
+                    <tbody>
+                        <tr>
+                            <td class="bold">Curso:</td>
+                            <td class="uppercase">{{ student.course.name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="bold">Aluno:</td>
+                            <td class="uppercase">{{ student.name }} - {{ student.user.id }}</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-</body>
+                <div class="container-table">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {% if messages %}
+                        <div>
+                            {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                <p>{{ message }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        <!-- Dynamic table with class data -->
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Selecionar</th>
+                                    <th>Disciplina</th>
+                                    <th>Professor</th>
+                                    <th>Horário</th>
+                                    <th>Dias</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for class in classes %}
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" id="class_{{ class.id }}" name="classes" value="{{ class.id }}">
+                                    </td>
+                                    <td>{{ class.subject.name }}</td>
+                                    <td>{{ class.professor.name }}</td>
+                                    <td>{{ class.start_time }} - {{ class.end_time }}</td>
+                                    <td>
+                                        {% for day in class.days_of_week.all %}
+                                        {{ day.get_name_display }}{% if not forloop.last %}, {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="5">Nenhuma turma disponível.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <button type="submit" class="btn">Matricular-se</button>
+                    </form>
+            </section>
+        </main>
+    </body>
 </html>
