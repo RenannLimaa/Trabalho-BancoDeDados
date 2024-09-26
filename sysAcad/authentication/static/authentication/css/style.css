@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+
+    width: 28rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.form-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 60px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: #00308F; 
+}
+
+
+.form-header h3 {
+    color: white;
+    font-size: 1.8rem;
+}
+
+.form-create-account {
+    width: 90%;
+    padding: 12px;
+}
+
+.role-selection {
+    text-align: center;
+}
+
+
+.radio-group {
+    display: flex;
+    justify-content: center;
+
+    gap: 16px;
+}
+
+.text-group {
+    margin-top: 12px;
+}
+
+.text-group input,
+.text-group select {
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 8px;
+}
+
+.text-group label {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-signup {
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    background-color: #00308F;
+
+    padding: 12px;
+    border-radius: 8px;
+    width: 10rem;
+    margin-top: 12px;
+    transition: background-color 0.3s ease;
+
+    cursor: pointer;
+}
+
+.btn-signup:hover {
+    background-color: #10244b;
+}
+
+.container p {
+    margin-bottom: 8px;
+}
+.container a {
+    text-decoration: none;
+}
+
+.container a {
+    color: #00308F;
+    text-decoration: none; /* Remove underline (optional) */
+}
+
+.container a:visited {
+    color: #00308F;
+}
+
+.container a:hover {
+    color: darkblue; /* Change color on hover (optional) */
+    text-decoration: underline;
+}

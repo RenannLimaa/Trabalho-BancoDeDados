@@ -1,0 +1,95 @@
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Sistema de Gestão Acadêmica para alunos.">
+        <meta name="keywords" content="gestão acadêmica, matrícula, histórico escolar">
+        <meta name="author" content="SysCad">
+        <title>Trancamento de Disciplinas</title>
+
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'student/css/home.css' %}">
+    </head>
+    <body>
+        <header class="header">
+            <img src="{% static 'student/images/uece-logo.png' %}" alt="Logo UECE">
+
+            <p>Bem-vindo, {{ student.get_first_name }} </p>
+        </header>
+
+        <nav class="navigation-bar">
+            <ul>
+                <li><a href="{% url 'student_home' %}">Home</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <section class="enrolled-subjects">
+
+                <h3 class="title">Minhas Disciplinas</h4>
+
+                <table id="student-info-table">
+                    <tbody>
+                        <tr>
+                            <td class="bold">Curso:</td>
+                            <td class="uppercase">{{ student.course.name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="bold">Aluno:</td>
+                            <td class="uppercase">{{ student.name }} - {{ student.user.id }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="container-table">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {% if messages %}
+                        <div>
+                            {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                <p>{{ message }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        <!-- Dynamic table with class data -->
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Selecionar</th>
+                                    <th>Disciplina</th>
+                                    <th>Professor</th>
+                                    <th>Horário</th>
+                                    <th>Dias</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for class in classes %}
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" id="class_{{ class.id }}" name="classes" value="{{ class.id }}">
+                                    </td>
+                                    <td>{{ class.subject.name }}</td>
+                                    <td>{{ class.professor.name }}</td>
+                                    <td>{{ class.start_time }} - {{ class.end_time }}</td>
+                                    <td>
+                                        {% for day in class.days_of_week.all %}
+                                        {{ day.get_name_display }}{% if not forloop.last %}, {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="5">Nenhuma turma disponível.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <button type="submit" class="btn">Trancar Disciplinas</button>
+                    </form>
+            </section>
+        </main>
+    </body>
+</html>

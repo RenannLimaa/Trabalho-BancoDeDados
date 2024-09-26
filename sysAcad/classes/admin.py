@@ -1,10 +1,22 @@
 from django.contrib import admin
-from .models import Classes  
+
+from classes.models import Classes, Day
 
 
-class ClassAdmin(admin.ModelAdmin):
-    list_display = ('classroom', 'start_time', 'day_of_week', 'end_time', 'subject', 'professor')
-    list_filter = ('subject', 'professor', 'day_of_week')
-    fields = ('classroom', 'start_time', 'day_of_week', 'end_time', 'subject', 'professor')
+class ClassesAdmin(admin.ModelAdmin):
+    filter_horizontal = ('days_of_week',)
+    list_filter = ('subject', 'professor', 'days_of_week')
 
-admin.site.register(Classes, ClassAdmin)
+    fieldsets = (
+        ('General Information', {
+            'fields': ('subject', 'professor', 'classroom', 'vacancies')
+        }),
+
+        ('Schedule', {
+            'fields': ('days_of_week', 'start_time', 'end_time')
+        })
+    )
+
+    
+admin.site.register(Classes, ClassesAdmin)
+admin.site.register(Day)

@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
+from course.models import Course
 
 User = get_user_model()
 
@@ -11,20 +11,56 @@ class StudentProfessorForm(forms.Form):
         ("student", "Estudante"),
     ]
 
-    role = forms.ChoiceField(label="Tipo", choices=ROLE_CHOICES, widget=forms.RadioSelect)
-    name = forms.CharField(label="Nome completo", max_length=64)
-    email = forms.EmailField(label="Email", max_length=32)
-    cellphone = forms.CharField(label="Celular", max_length=14)
-    password = forms.CharField(label="Senha", widget=forms.PasswordInput)
-    password_confirm = forms.CharField(label="Confirmar Senha", widget=forms.PasswordInput)
+    role = forms.ChoiceField(
+        choices=ROLE_CHOICES,
+        widget=forms.RadioSelect(attrs={'class': 'role-radio'})  # Optional for styling
+    )
+
+    name = forms.CharField(
+        max_length=64,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Digite seu nome completo'
+        })
+    )
+
+    email = forms.EmailField(
+        max_length=32,
+        widget=forms.EmailInput(attrs={
+            'placeholder': 'Digite seu e-mail'
+        })
+    )
+
+    cellphone = forms.CharField(
+        max_length=14,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Digite seu celular'
+        })
+    )
+
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Digite sua senha'
+        })
+    )
+
+    password_confirm = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Confirme sua senha'
+        })
+    )
+
+    course = forms.ModelChoiceField(
+        queryset=Course.objects.all(),
+        required=True,
+        label="Curso",
+        widget=forms.Select()
+    )
 
     birth_date = forms.DateField(
         label="Data de nascimento",
-        widget=forms.DateInput(
-            attrs={
-                "type": "date"
-            }
-        )
+        widget=forms.DateInput(attrs={
+            'type': 'date',
+        })
     )
 
     def clean_email(self):
