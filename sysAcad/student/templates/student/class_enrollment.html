@@ -1,3 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+    <link rel="stylesheet" href="{% static 'student/css/student.css' %}">
+{% endblock %}
+
+
+
+{% block 'body' %}
 
 {% if messages %}
     <div>
@@ -7,10 +17,7 @@
             </div>
         {% endfor %}
     </div>
-{% endif %}
-
-
-<form method="POST">
+{% endif %}<form method="POST">
     {% csrf_token %}
     <div>
         <h3>Selecione as turmas</h3>
@@ -31,6 +38,9 @@
             </div>
         {% endfor %}
     </div>
-
-    <button type="submit" class="btn btn-primary">Matricular-se</button>
+    <div class="form-buttons">
+        <button type="submit" class="btn btn-primary">Matricular-se</button>
+        <a href="{% url 'student_home' %}" class="btn btn-primary">Voltar</a>
+    </div>
 </form>
+{% endblock %}
