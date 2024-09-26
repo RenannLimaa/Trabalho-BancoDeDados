@@ -1,4 +1,8 @@
 from django.contrib import admin
-from course.models import Course
+from .models import Course
 
-admin.site.register(Course)
+class CourseAdmin(admin.ModelAdmin):
+    list_display = ('name', 'duration')
+    search_fields = ('name', 'duration')
+
+admin.site.register(Course, CourseAdmin)
