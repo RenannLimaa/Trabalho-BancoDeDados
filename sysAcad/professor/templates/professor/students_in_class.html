@@ -26,19 +26,19 @@
             </thead>
             <tbody>
                 {% for student in students %}
-                    {% with grades_for_student=grades_by_student|get_item:student.id %}
+                    {% with grades_for_student=grades_by_student|get_item:student.user_id %}
                         <tr>
                             <td>{{ student.name }}</td>
                             <td>
-                                <input type="number" step="0.1" name="grade1_{{ student.id }}" 
+                                <input type="number" step="0.1" name="grade1_{{ student.user.id }}" 
                                        value="{% if grades_for_student %}{{ grades_for_student.grade1|default:'0' }}{% else %}0{% endif %}" min="0" max="10">
                             </td>
                             <td>
-                                <input type="number" step="0.1" name="grade2_{{ student.id }}" 
+                                <input type="number" step="0.1" name="grade2_{{ student.user.id }}" 
                                        value="{% if grades_for_student %}{{ grades_for_student.grade2|default:'0' }}{% else %}0{% endif %}" min="0" max="10">
                             </td>
                             <td>
-                                <input type="number" step="0.1" name="grade3_{{ student.id }}" 
+                                <input type="number" step="0.1" name="grade3_{{ student.user.id }}" 
                                        value="{% if grades_for_student %}{{ grades_for_student.grade3|default:'0' }}{% else %}0{% endif %}" min="0" max="10">
                             </td>
                             <td>

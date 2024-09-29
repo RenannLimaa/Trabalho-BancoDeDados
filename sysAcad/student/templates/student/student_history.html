@@ -1,0 +1,46 @@
+
+{% load student_filters %}
+
+{% block 'body' %}
+<h1>Histórico Escolar</h1>
+
+{% if messages %}
+    <div class="alert alert-info">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if completed_classes %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Disciplina</th>
+                <th>Sala</th>
+                <th>Horário</th>
+                <th>Data de Conclusão</th>
+                <th>Média</th>  
+            </tr>
+        </thead>
+        <tbody>
+            {% for class in completed_classes %}
+                <tr>
+                    <td>{{ class.subject.name }}</td>
+                    <td>{{ class.classroom }}</td>
+                    <td>{{ class.start_time }} - {{ class.end_time }}</td>
+                    <td>{{ class.date_completed }}</td> 
+                    <td>
+                        {% with averages|get_item:class.subject.name as average %}
+                            {{ average|floatformat:2|default:"N/A" }}  <!-- Exibe a média formatada -->
+                        {% endwith %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Você ainda não concluiu nenhuma turma.</p>
+{% endif %}
+<a href="{% url 'student_home' %}" class="btn btn-primary">Voltar</a>
+{% endblock %}

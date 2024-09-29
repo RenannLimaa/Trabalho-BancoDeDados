@@ -6,6 +6,7 @@ from django.urls import reverse
 from users.forms import EditInfoForm
 from .models import Student
 from classes.models import Classes
+from grade.models import Grade
 
 # Create your views here.
 @login_required
@@ -148,4 +149,33 @@ def remove_classes(request):
                 return redirect("remove_classes")
 
     classes = student.classes.all()
-    return render(request, "student/remove_classes.html", {"classes": classes, "student": student})
+    return render(request, "student/remove_classes.html", {"classes": classes})
+
+@login_required
+def student_history(request):
+    student = request.user.student  # Acessando o estudante logado
+
+    # Filtra as turmas completas em que o aluno está matriculado
+    completed_classes = student.classes.filter(is_completed=True)
+
+    # Dicionário para armazenar as médias
+    averages = {}
+
+    for class_instance in completed_classes:
+        # Obtém as notas do aluno para a disciplina da turma
+        grades = Grade.objects.filter(student=student, subject=class_instance.subject)
+
+        if grades.exists():
+            avg = sum(grade.calculate_average() for grade in grades if grade.calculate_average() is not None) / grades.count()
+            averages[class_instance.subject.name] = avg
+
+    # Adicionando mensagem caso não tenha turmas concluídas
+    if not completed_classes.exists():
+        messages.info(request, "Você ainda não concluiu nenhuma turma.")
+
+    context = {
+        'completed_classes': completed_classes,
+        'averages': averages,
+    }
+
+    return render(request, 'student/student_history.html', context)
