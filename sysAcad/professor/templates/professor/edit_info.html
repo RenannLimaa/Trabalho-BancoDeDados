@@ -52,7 +52,7 @@
         </div>
         <div class="form-buttons">
             <button type="submit" class="btn-update">Atualizar dados</button>
-            <a href="{% url 'remove_professor' %}" class="btn-remove-account">Excluir conta</a>
+            <a href="{% url 'remove_professor' %}" class="btn-remove-account" onclick="return confirm('Tem certeza que deseja excluir essa conta?');">Excluir conta</a>
         </div>
     </form>
 </div>

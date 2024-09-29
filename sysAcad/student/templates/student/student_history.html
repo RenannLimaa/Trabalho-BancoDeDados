@@ -1,46 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Sistema de Gestão Acadêmica para alunos.">
+        <meta name="keywords" content="gestão acadêmica, matrícula, histórico escolar">
+        <meta name="author" content="SysCad">
+        <title>Histórico Escolar</title>
 
-{% load student_filters %}
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'student/css/home.css' %}">
+    </head>
 
-{% block 'body' %}
-<h1>Histórico Escolar</h1>
+    <body>
+        <header class="header">
+            <img src="{% static 'student/images/uece-logo.png' %}" alt="Logo UECE">
+            <p>Bem-vindo, {{ student.get_first_name }} </p>
+        </header>
 
-{% if messages %}
-    <div class="alert alert-info">
-        {% for message in messages %}
-            {{ message }}
-        {% endfor %}
-    </div>
-{% endif %}
+        <nav class="navigation-bar">
+            <ul>
+                <li><a href="{% url 'student_home' %}">Home</a></li>
+                <li><a href="{% url 'class_enrollment' %}">Realizar Matrícula</a></li>
+                <li><a href="{% url 'remove_classes' %}">Trancar Disciplinas</a></li>
+                <li><a href="{% url 'student_history' %}">Histórico Escolar</a></li>
+                <li><a href="{% url 'curriculum_course' %}">Grade Curricular</a></li>
+                <li><a href="{% url 'edit_student' %}">Dados Pessoais</a></li>
+            </ul>
+        </nav>
 
-{% if completed_classes %}
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Disciplina</th>
-                <th>Sala</th>
-                <th>Horário</th>
-                <th>Data de Conclusão</th>
-                <th>Média</th>  
-            </tr>
-        </thead>
-        <tbody>
-            {% for class in completed_classes %}
-                <tr>
-                    <td>{{ class.subject.name }}</td>
-                    <td>{{ class.classroom }}</td>
-                    <td>{{ class.start_time }} - {{ class.end_time }}</td>
-                    <td>{{ class.date_completed }}</td> 
-                    <td>
-                        {% with averages|get_item:class.subject.name as average %}
-                            {{ average|floatformat:2|default:"N/A" }}  <!-- Exibe a média formatada -->
-                        {% endwith %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <p>Você ainda não concluiu nenhuma turma.</p>
-{% endif %}
-<a href="{% url 'student_home' %}" class="btn btn-primary">Voltar</a>
-{% endblock %}
+        <main>
+            <section class="enrolled-subjects">
+                <h3 class="title">Histórico Escolar</h4>
+
+                <table id="student-info-table">
+                    <tbody>
+                        <tr>
+                            <td class="bold">Curso:</td>
+                            <td class="uppercase">{{ student.course.name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="bold">Aluno:</td>
+                            <td class="uppercase">{{ student.name }} - {{ student.user.id }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="container-table">
+                    {% if grades_data %}
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Disciplina</th>
+                                    <th>Nota 1</th>
+                                    <th>Nota 2</th>
+                                    <th>Nota 3</th>
+                                    <th>Média</th>
+                                    <th>Status</th>  <!-- Nova coluna para o status -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for grade in grades_data %}
+                                    <tr>
+                                        <td>{{ grade.subject_name }}</td>
+                                        <td>{{ grade.grade1|default:"-" }}</td>
+                                        <td>{{ grade.grade2|default:"-" }}</td>
+                                        <td>{{ grade.grade3|default:"-" }}</td>
+                                        <td>{{ grade.average|floatformat:2|default:"N/A" }}</td>
+                                        <td>{{ grade.status|default:"N/A" }}</td>  <!-- Exibe o status -->
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>Você ainda não tem notas cadastradas.</p>
+                    {% endif %}
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

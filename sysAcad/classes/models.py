@@ -33,8 +33,6 @@ class Classes(models.Model):
     subject = models.ForeignKey("subject.Subject", on_delete=models.CASCADE, related_name="classes")
     professor = models.ForeignKey("professor.Professor", on_delete=models.CASCADE, related_name="classes")
 
-    is_completed = models.BooleanField(default=False)
-    date_completed = models.DateTimeField(null=True, blank=True)
 
     def clean(self):
         if self.start_time >= self.end_time:
@@ -54,7 +52,6 @@ class Classes(models.Model):
             classroom=self.classroom,
             start_time__lt=self.end_time,
             end_time__gt=self.start_time,
-            is_completed=False  # Apenas turmas não concluídas
         ).exclude(id=self.id)  # Exclui a própria turma, caso esteja sendo editada
 
         if conflicting_classes.exists():
@@ -68,11 +65,6 @@ class Classes(models.Model):
             if not grades.exists() or any(g.grade1 is None or g.grade2 is None or g.grade3 is None for g in grades):
                 return False
         return True
-    
-    def save(self, *args, **kwargs):
-        if self.is_completed and not self.date_completed:
-            self.date_completed = timezone.now()  # Define a data de conclusão ao salvar
-        super().save(*args, **kwargs)
 
 
     def __str__(self):
