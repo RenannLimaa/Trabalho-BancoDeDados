@@ -16,3 +16,7 @@ class Professor(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def get_first_name(self):
+        names = self.name.split()
+        return names[0]

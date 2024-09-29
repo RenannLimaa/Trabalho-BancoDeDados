@@ -1,0 +1,175 @@
+:root {
+    --dark-blue: #00308F; /* Main color */
+    --white: #f4f4f4;    /* Background color */
+}
+
+* {
+    font-family: arial;
+}
+
+body {
+    margin: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    color: var(--white);
+    background-color: var(--dark-blue);
+
+    top: 0;
+    left: 0;
+    padding: 20px 50px;
+
+    height: 5rem;
+}
+
+.header p {
+    font-size: 1.2rem;
+}
+
+.header img {
+    width: 16rem;
+}
+
+.navigation-bar {
+    display: flex;
+    color: white;
+    background-color: var(--dark-blue);
+    padding: 0px 50px;
+}
+
+.navigation-bar ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.navigation-bar ul li {
+    display: inline-block;
+    font-weight: bold;
+}
+
+.navigation-bar a {
+    color: var(--white); /* White text for links */
+    text-decoration: none; /* Remove underline from links */
+    margin-right: 16px;
+}
+
+.navigation-bar a:hover {
+    text-decoration: underline; /* Optional: underline on hover */
+}
+
+main {
+    margin: 16px;
+    padding: 16px;
+    background-color: #efefef;
+    border: 0.5px solid #cccccc;
+}
+
+.enrolled-subjects .title {
+    color: #0a2351;
+    text-transform: uppercase;
+}
+
+.alert-error {
+    font-weight: bold;
+    color: #d9534f;
+}
+
+.alert-success {
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+#student-info-table .bold {
+    font-weight: bold; /* Make text bold */
+}
+
+#student-info-table .uppercase {
+    text-transform: uppercase; 
+}
+
+/* Styling the table */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+.table thead {
+    background-color: var(--dark-blue); /* Using the dark blue color for the header */
+    color: var(--white); /* White text color */
+}
+
+.table thead th {
+    padding: 10px;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.table tbody td {
+    padding: 10px;
+    background-color: var(--white); /* Using white for the row background */
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #e6e6e6; /* A slightly darker grey for alternating rows */
+}
+
+.table tbody tr:hover {
+    background-color: #ccd7eb; /* Light blue for hover effect */
+}
+
+.table tbody td a {
+    text-decoration: none;
+}
+
+.table tbody td a:hover {
+    text-decoration: underline;
+}
+
+.table, .table th, .table td {
+    border: 1px solid #000; 
+    border-collapse: collapse; 
+}
+
+.table th, .table td {
+    border: 1px solid #cccccc; 
+}
+
+.btn {
+    color: white;
+    outline: none;
+    font-weight: bold;
+    font-size: 16px;
+    background-color: var(--dark-blue);
+
+    border-radius: 8px;
+
+    padding: 8px 8px;
+    width: 11em;
+
+    cursor: pointer;
+}
+
+.btn:hover {
+    transform: scale(1.1);
+}
+
+.btn-primary {
+    background-color: #00308F; /* Cor de fundo azul */
+    color: white; /* Cor do texto */
+    padding: 9px 20px; /* Espaçamento interno */
+    border: none; /* Sem borda */
+    border-radius: 5px; /* Borda arredondada */
+    text-decoration: none; /* Remove sublinhado de links */
+    font-size: 14px; /* Tamanho da fonte */
+    cursor: pointer; /* Indicador de clique */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transições suaves */
+}
