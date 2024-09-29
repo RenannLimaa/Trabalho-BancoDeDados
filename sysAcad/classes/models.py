@@ -36,6 +36,10 @@ class Classes(models.Model):
     is_completed = models.BooleanField(default=False)
     date_completed = models.DateTimeField(null=True, blank=True)
 
+    def clean(self):
+        if self.start_time >= self.end_time:
+            raise ValidationError(_('O horário de início deve ser antes do horário de término.'))
+
     class Meta:
         verbose_name = "Class"
         verbose_name_plural = "Classes"
@@ -69,6 +73,7 @@ class Classes(models.Model):
         if self.is_completed and not self.date_completed:
             self.date_completed = timezone.now()  # Define a data de conclusão ao salvar
         super().save(*args, **kwargs)
+
 
     def __str__(self):
         return f"{self.subject} - {self.professor}"

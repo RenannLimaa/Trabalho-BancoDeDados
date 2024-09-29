@@ -1,83 +1,95 @@
-{% extends 'base.html' %}
-{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Registre-se para acessar o sistema acadêmico.">
+        <meta name="keywords" content="gestão acadêmica, matrícula, cadastro de usuário">
+        <meta name="author" content="SysCad">
+        <title>Registro de Usuário</title>
 
-{% block 'head' %}
-    <link rel="stylesheet" href="{% static 'student/css/student.css' %}">
-{% endblock %}
-
-{% block 'body' %}
-<div class="container">
-    <form method="POST" class="form-update-account">
-        {% csrf_token %}
-        <!-- Exibe erros não relacionados a campos específicos -->
-        <div class="error">
-            {{ form.non_field_errors }}
-        </div>
-        <h3>Registre-se</h3><hr>
-        <div class="form-group">
-            <label for="{{ form.role.id_for_label }}">Tipo</label>
-            <div class="radio-group">
-                {{ form.role }}
-                {% if form.role.errors %}
-                    <div class="error">{{ form.role.errors }}</div>
-                {% endif %}
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'authentication/css/style.css' %}">
+    </head>
+    <body>
+        <div class="container">
+            <div class="form-header">
+                <h3>Registre-se</h3>
             </div>
+            <form method="POST" class="form-create-account">
+                {% csrf_token %}
+
+                <div class="form-group role-selection">
+                    <div class="radio-group">
+                        {% for radio in form.role %}
+                        <div class="radio-option">
+                            {{ radio.tag }}  <!-- The actual radio button -->
+                            <label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% if form.role.errors %}
+                    <div class="error">{{ form.role.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="text-group">
+                    <div class="form-group">
+                        {{ form.name }} <!-- Use Django to render field with widget (including placeholder) -->
+                        {% if form.name.errors %}
+                        <div class="error">{{ form.name.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.email }} <!-- Use Django to render field with widget (including placeholder) -->
+                        {% if form.email.errors %}
+                        <div class="error">{{ form.email.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.cellphone }} <!-- Use Django to render field with widget (including placeholder) -->
+                        {% if form.cellphone.errors %}
+                        <div class="error">{{ form.cellphone.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.password }} <!-- Use Django to render password field with widget -->
+                        {% if form.password.errors %}
+                        <div class="error">{{ form.password.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.password_confirm }} <!-- Use Django to render password confirm field -->
+                        {% if form.password_confirm.errors %}
+                        <div class="error">{{ form.password_confirm.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.course.id_for_label }}">Curso</label>
+                        {{ form.course }}  
+                        {% if form.course.errors %}
+                        <div class="error">{{ form.course.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.birth_date.id_for_label }}">Data de nascimento</label>
+                        {{ form.birth_date }}  <!-- This will render the date input -->
+                        {% if form.birth_date.errors %}
+                        <div class="error">{{ form.birth_date.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="btn-signup">Registrar</button>
+                </div>
+            </form>
+            <p> Já possui uma conta? <a href={% url 'login' %}>Entre</a></p>
         </div>
-        <div class="form-group">
-            <label for="{{ form.name.id_for_label }}">Nome completo</label>
-            {{ form.name }}
-            {% if form.name.errors %}
-                <div class="error">{{ form.name.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.email.id_for_label }}">Email</label>
-            {{ form.email }}
-            {% if form.email.errors %}
-                <div class="error">{{ form.email.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.cellphone.id_for_label }}">Celular</label>
-            {{ form.cellphone }}
-            {% if form.cellphone.errors %}
-                <div class="error">{{ form.cellphone.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.password.id_for_label }}">Senha</label>
-            {{ form.password }}
-            {% if form.password.errors %}
-                <div class="error">{{ form.password.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.password_confirm.id_for_label }}">Confirmar Senha</label>
-            {{ form.password_confirm }}
-            {% if form.password_confirm.errors %}
-                <div class="error">{{ form.password_confirm.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.course.id_for_label }}">Curso</label>
-            {{ form.course }}
-            {% if form.course.errors %}
-                <div class="error">{{ form.course.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.birth_date.id_for_label }}">Data de nascimento</label>
-            {{ form.birth_date }}
-            {% if form.birth_date.errors %}
-                <div class="error">{{ form.birth_date.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-buttons">
-            <button type="submit" class="btn-update">Registrar</button>
-        </div>
-        <div class="form-buttons">
-            <a href="{% url 'login' %}" class="btn-update">Voltar</a>
-        </div>
-    </form>
-</div>
-{% endblock %}
+    </body>
+</html>

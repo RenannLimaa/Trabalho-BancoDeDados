@@ -75,17 +75,26 @@ def edit_student(request):
                 "birth_date": student.birth_date,
             }
         )
-    return render(request, "student/edit_info.html", {"form": form})
+    return render(request, "student/edit_info.html", {"form": form, "student": student})
 
 
 @login_required
 def enroll_in_classes(request):
     student = Student.objects.get(user=request.user)
 
+
     if request.method == "POST":
         if request.user.is_authenticated:
             try:
                 selected_classes = request.POST.getlist("classes")
+
+                if student.get_number_of_enrolled_classes() > 7:
+                    messages.error(request, "Não é possível se matricular em mais de 7 disciplinas")
+                    return redirect("class_enrollment")
+
+                if not selected_classes:
+                    messages.error(request, "Nenhuma turma selecionada")
+                    return redirect("class_enrollment")
 
                 for class_id in selected_classes:
                     classes = Classes.objects.get(id=class_id)
@@ -108,7 +117,7 @@ def enroll_in_classes(request):
                 return redirect("class_enrollment")
 
     classes = Classes.objects.all()
-    return render(request, "student/class_enrollment.html", {"classes": classes})
+    return render(request, "student/class_enrollment.html", {"classes": classes, "student": student})
 
 
 @login_required
@@ -120,12 +129,16 @@ def remove_classes(request):
             try:
                 selected_classes = request.POST.getlist("classes")
 
+                if not selected_classes:
+                    messages.error(request, "Nenhuma disciplina selecionada")
+                    return redirect("remove_classes")
+
                 for class_id in selected_classes:
                     classes = Classes.objects.get(id=class_id)
                     student.classes.remove(classes)
 
                 messages.success(request, "Turmas removidas com sucesso!")
-                return redirect("my_classes")
+                return redirect("remove_classes")
 
             except Student.DoesNotExist:
                 messages.error(request, "Estudante não encontrado")
@@ -133,10 +146,10 @@ def remove_classes(request):
 
             except Classes.DoesNotExist:
                 messages.error(request, "Uma ou mais turmas não existe")
-                return redirect("my_classes")
+                return redirect("remove_classes")
 
     classes = student.classes.all()
-    return render(request, "student/my_classes.html", {"classes": classes})
+    return render(request, "student/remove_classes.html", {"classes": classes})
 
 @login_required
 def student_history(request):
