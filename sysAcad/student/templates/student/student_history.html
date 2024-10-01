@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="pt-BR">
     <head>
         <meta charset="UTF-8">
@@ -5,15 +6,15 @@
         <meta name="description" content="Sistema de Gestão Acadêmica para alunos.">
         <meta name="keywords" content="gestão acadêmica, matrícula, histórico escolar">
         <meta name="author" content="SysCad">
-        <title>Trancamento de Disciplinas</title>
+        <title>Histórico Escolar</title>
 
         {% load static %}
         <link rel="stylesheet" href="{% static 'student/css/home.css' %}">
     </head>
+
     <body>
         <header class="header">
             <img src="{% static 'student/images/uece-logo.png' %}" alt="Logo UECE">
-
             <p>Bem-vindo, {{ student.get_first_name }} </p>
         </header>
 
@@ -30,8 +31,7 @@
 
         <main>
             <section class="enrolled-subjects">
-
-                <h3 class="title">Minhas Disciplinas</h3>
+                <h3 class="title">Histórico Escolar</h4>
 
                 <table id="student-info-table">
                     <tbody>
@@ -47,53 +47,35 @@
                 </table>
 
                 <div class="container-table">
-                    <form method="POST">
-                        {% csrf_token %}
-                        {% if messages %}
-                        <div>
-                            {% for message in messages %}
-                            <div class="alert alert-{{ message.tags }}">
-                                <p>{{ message }}</p>
-                            </div>
-                            {% endfor %}
-                        </div>
-                        {% endif %}
-                        <!-- Dynamic table with class data -->
+                    {% if grades_data %}
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Selecionar</th>
                                     <th>Disciplina</th>
-                                    <th>Professor</th>
-                                    <th>Horário</th>
-                                    <th>Dias</th>
+                                    <th>Nota 1</th>
+                                    <th>Nota 2</th>
+                                    <th>Nota 3</th>
+                                    <th>Média</th>
+                                    <th>Status</th>  <!-- Nova coluna para o status -->
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for class in classes %}
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" id="class_{{ class.id }}" name="classes" value="{{ class.id }}">
-                                    </td>
-                                    <td>{{ class.subject.name }}</td>
-                                    <td>{{ class.professor.name }}</td>
-                                    <td>{{ class.start_time }} - {{ class.end_time }}</td>
-                                    <td>
-                                        {% for day in class.days_of_week.all %}
-                                        {{ day.get_name_display }}{% if not forloop.last %}, {% endif %}
-                                        {% endfor %}
-                                    </td>
-                                </tr>
-                                {% empty %}
-                                <tr>
-                                    <td colspan="5">Nenhuma turma disponível.</td>
-                                </tr>
+                                {% for grade in grades_data %}
+                                    <tr>
+                                        <td>{{ grade.subject_name }}</td>
+                                        <td>{{ grade.grade1|default:"-" }}</td>
+                                        <td>{{ grade.grade2|default:"-" }}</td>
+                                        <td>{{ grade.grade3|default:"-" }}</td>
+                                        <td>{{ grade.average|floatformat:2|default:"N/A" }}</td>
+                                        <td>{{ grade.status|default:"N/A" }}</td>  <!-- Exibe o status -->
+                                    </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
-
-                        <button type="submit" class="btn">Trancar Disciplinas</button>
-                    </form>
+                    {% else %}
+                        <p>Você ainda não tem notas cadastradas.</p>
+                    {% endif %}
+                </div>
             </section>
         </main>
     </body>

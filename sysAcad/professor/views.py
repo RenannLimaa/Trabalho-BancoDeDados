@@ -6,9 +6,6 @@ from django.urls import reverse
 from users.forms import EditInfoForm
 from classes.models import Classes
 from grade.models import Grade
-
-
-
 from .models import Professor
 
 
@@ -147,15 +144,15 @@ def view_students_in_class(request, class_id):
 
     students = class_instance.students.all()
     grades_by_student = {
-        grade.student.user.id: grade  # Atualize para usar grade.student.user.id
+        grade.student.user.id: grade  
         for grade in Grade.objects.filter(student__in=students, subject=class_instance.subject)
     }
 
     if request.method == 'POST':
         for student in students:
-            grade1 = request.POST.get(f'grade1_{student.user.id}')  # Atualize para usar student.user.id
-            grade2 = request.POST.get(f'grade2_{student.user.id}')  # Atualize para usar student.user.id
-            grade3 = request.POST.get(f'grade3_{student.user.id}')  # Atualize para usar student.user.id
+            grade1 = request.POST.get(f'grade1_{student.user.id}')
+            grade2 = request.POST.get(f'grade2_{student.user.id}')
+            grade3 = request.POST.get(f'grade3_{student.user.id}')
 
             # Obter ou criar o objeto de Grade correspondente
             grade, created = Grade.objects.get_or_create(student=student, subject=class_instance.subject)

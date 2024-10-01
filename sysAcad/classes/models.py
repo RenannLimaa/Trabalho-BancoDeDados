@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from grade.models import Grade
+from django.utils import timezone
 
 class Day(models.Model):
     DAYS_OF_WEEK = [
@@ -31,12 +33,21 @@ class Classes(models.Model):
     subject = models.ForeignKey("subject.Subject", on_delete=models.CASCADE, related_name="classes")
     professor = models.ForeignKey("professor.Professor", on_delete=models.CASCADE, related_name="classes")
 
-
-    
+    def clean(self):
+        if self.start_time >= self.end_time:
+            raise ValidationError(_('O horário de início deve ser antes do horário de término.'))
 
     class Meta:
         verbose_name = "Class"
         verbose_name_plural = "Classes"
+    
+    def all_grades_assigned(self):
+        students = self.students.all()
+        for student in students:
+            grades = Grade.objects.filter(student=student, subject=self.subject)
+            if not grades.exists() or any(g.grade1 is None or g.grade2 is None or g.grade3 is None for g in grades):
+                return False
+        return True
 
 
     def __str__(self):
