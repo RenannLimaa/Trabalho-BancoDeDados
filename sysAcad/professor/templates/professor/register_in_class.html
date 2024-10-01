@@ -41,6 +41,15 @@
                     {% if available_classes %}
                         <form method="post">
                             {% csrf_token %}
+                            {% if messages %}
+                            <div>
+                                {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }}">
+                                    <p>{{ message }}</p>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
                             <table class="table table-bordered table-strip">
                                 <thead>
                                     <tr>
@@ -54,13 +63,17 @@
                                 <tbody>
                                     {% for class in available_classes %}
                                         <tr>
-                                            <td>{{ class.subject.name }}</td>
-                                            <td>{{ class.schedule }}</td>
-                                            <td>{{ class.room }}</td>
-                                            <td>{{ class.seat_count }}</td>
                                             <td>
-                                                <input type="radio" name="class_id" value="{{ class.id }}" required>
+                                                <input type="checkbox" id="class_{{ class.id }}" name="classes" value="{{ class.id }}">
                                             </td>
+                                            <td>{{ class.subject.name }}</td>
+                                            <td>
+                                                {% for day in class.days_of_week.all %}
+                                                {{ day.get_name_display }}{% if not forloop.last %}, {% endif %}
+                                                {% endfor %}
+                                            </td>
+                                            <td>{{ class.classroom }}</td>
+                                            <td>{{ class.vacancies }}</td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>
