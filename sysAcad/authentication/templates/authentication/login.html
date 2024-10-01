@@ -1,65 +1,66 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login</title>
-        {% load static %}
-        <link rel="stylesheet" href="{% static 'authentication/css/style.css' %}">
-    </head>
-    <body>
-        <div class="container">
-            <div class="form-header">
-                <h3>Login</h3>
-            </div>
-            <form method="post" class="form-create-account">
-                {% csrf_token %}
-                <div class="form-group role-selection">
-                    <div class="radio-group">
-                        {% for radio in form.role %}
-                        <div class="radio-option">
-                            {{ radio.tag }}  <!-- The actual radio button -->
-                            <label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    {% if form.role.errors %}
-                    <div class="error">{{ form.role.errors }}</div>
-                    {% endif %}
-                </div>
-
-                <div class="text-group">
-                    <div class="form-group">
-                        <label for="{{ form.email.id_for_label }}">Email</label>
-                        {{ form.email }}  <!-- Use Django to render the field -->
-                        {% if form.email.errors %}
-                        <div class="error">{{ form.email.errors }}</div>
-                        {% endif %}
-                    </div>
-
-                    <div class="form-group">
-                        <label for="{{ form.password.id_for_label }}">Senha</label>
-                        {{ form.password }}  <!-- Use Django to render the password field -->
-                        {% if form.password.errors %}
-                        <div class="error">{{ form.password.errors }}</div>
-                        {% endif %}
-                    </div>
-                </div>
-
-                {% if messages %}
-                <div class="messages">
-                    {% for message in messages %}
-                    <div class="alert {{ message.tags }}">
-                        {{ message }}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'authentication/css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="form-header">
+            <h3>Login</h3>
+        </div>
+        <form method="post" class="form-create-account">
+            {% csrf_token %}
+            <div class="form-group role-selection">
+                <div class="radio-group">
+                    {% for radio in form.role %}
+                    <div class="radio-option">
+                        {{ radio.tag }}  <!-- The actual radio button -->
+                        <label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
                     </div>
                     {% endfor %}
+                </div>
+                {% if form.role.errors %}
+                <div class="error">{{ form.role.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="text-group">
+                <div class="form-group">
+                    <label for="{{ form.email.id_for_label }}">Email</label>
+                    {{ form.email }}  <!-- Use Django to render the field -->
+                    {% if form.email.errors %}
+                    <div class="error">{{ form.email.errors }}</div>
                     {% endif %}
                 </div>
-                <div class="form-buttons">
-                    <button type="submit" class="btn-signup">Entrar</button>
+
+                <div class="form-group">
+                    <label for="{{ form.password.id_for_label }}">Senha</label>
+                    {{ form.password }}  <!-- Use Django to render the password field -->
+                    {% if form.password.errors %}
+                    <div class="error">{{ form.password.errors }}</div>
+                    {% endif %}
                 </div>
-            </form>
-            <p>Não tem conta cadastrada? <a href="{% url 'register' %}">Cadastre-se</a></p>
-        </div>
-    </body>
+            </div>
+
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="alert {{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="form-buttons">
+                <button type="submit" class="btn-signup">Entrar</button>
+            </div>
+        </form>
+        <p>Não tem conta cadastrada? <a href="{% url 'register' %}">Cadastre-se</a></p>
+    </div>
+</body>
 </html>
