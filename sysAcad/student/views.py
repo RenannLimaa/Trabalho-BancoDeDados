@@ -146,6 +146,7 @@ def remove_classes(request):
 
                 for class_id in selected_classes:
                     classes = Classes.objects.get(id=class_id)
+                    Grade.objects.filter(student=student, subject=classes.subject).delete()                    
                     student.classes.remove(classes)
 
                 messages.success(request, "Turmas removidas com sucesso!")
