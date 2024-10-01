@@ -20,13 +20,18 @@
         <nav class="navigation-bar">
             <ul>
                 <li><a href="{% url 'student_home' %}">Home</a></li>
+                <li><a href="{% url 'class_enrollment' %}">Realizar Matrícula</a></li>
+                <li><a href="{% url 'remove_classes' %}">Trancar Disciplinas</a></li>
+                <li><a href="{% url 'student_history' %}">Histórico Escolar</a></li>
+                <li><a href="{% url 'curriculum_course' %}">Grade Curricular</a></li>
+                <li><a href="{% url 'edit_student' %}">Dados Pessoais</a></li>
             </ul>
         </nav>
 
         <main>
             <section class="enrolled-subjects">
 
-                <h3 class="title">Minhas Disciplinas</h4>
+                <h3 class="title">Minhas Disciplinas</h3>
 
                 <table id="student-info-table">
                     <tbody>

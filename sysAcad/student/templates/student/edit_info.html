@@ -22,6 +22,11 @@
         <nav class="navigation-bar">
             <ul>
                 <li><a href="{% url 'student_home' %}">Home</a></li>
+                <li><a href="{% url 'class_enrollment' %}">Realizar Matrícula</a></li>
+                <li><a href="{% url 'remove_classes' %}">Trancar Disciplinas</a></li>
+                <li><a href="{% url 'student_history' %}">Histórico Escolar</a></li>
+                <li><a href="{% url 'curriculum_course' %}">Grade Curricular</a></li>
+                <li><a href="{% url 'edit_student' %}">Dados Pessoais</a></li>
             </ul>
         </nav>
 
@@ -88,7 +93,7 @@
 
                 <div class="form-buttons">
                     <button type="submit" class="btn-update">Atualizar dados</button>
-                    <a href="{% url 'remove_student' %}" class="btn-remove-account">Excluir conta</a>
+                    <a href="{% url 'remove_student' %}" class="btn-remove-account" onclick="return confirm('Tem certeza que deseja excluir essa conta?');">Excluir conta</a>
                 </div>
             </form>
         </div>

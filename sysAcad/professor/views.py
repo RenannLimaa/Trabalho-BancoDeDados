@@ -112,7 +112,7 @@ def view_current_classes(request):
         professor = Professor.objects.get(user=request.user)
 
         # Obter todas as turmas atribuídas ao professor
-        current_classes = Classes.objects.filter(professor=professor, is_completed=False)
+        current_classes = Classes.objects.filter(professor=professor)
 
         return render(request, 'professor/current_classes.html', {'current_classes': current_classes})
     
@@ -130,7 +130,7 @@ def view_students_in_class(request, class_id):
 
     students = class_instance.students.all()
     grades_by_student = {
-        grade.student.user.id: grade  # Atualize para usar grade.student.user.id
+        grade.student.user.id: grade  
         for grade in Grade.objects.filter(student__in=students, subject=class_instance.subject)
     }
 
@@ -180,24 +180,17 @@ def view_students_in_class(request, class_id):
 def complete_class(request, class_id):
     class_instance = get_object_or_404(Classes, id=class_id)
 
+    # Verifica se o professor atual é responsável pela turma
     if class_instance.professor.user != request.user:
         messages.error(request, "Você não tem permissão para concluir esta turma.")
         return redirect('view_current_classes')
 
     if request.method == 'POST':
         if class_instance.all_grades_assigned():
-            class_instance.is_completed = True
-            class_instance.save()
-            messages.success(request, "Turma concluída com sucesso.")
+            
+            class_instance.students.clear()  
+
+            messages.success(request, "Turma concluída com sucesso e alunos removidos.")
             return redirect('view_current_classes')
         else:
             messages.error(request, "Não é possível concluir a turma. Certifique-se de que todas as notas foram atribuídas.")
-
-    return render(request, 'professor/complete_class.html', {
-        'class_instance': class_instance
-    })
-
-@login_required
-def view_completed_classes(request):
-    completed_classes = Classes.objects.filter(professor__user=request.user, is_completed=True)  # Filtra turmas concluídas
-    return render(request, 'professor/completed_classes.html', {'completed_classes': completed_classes})

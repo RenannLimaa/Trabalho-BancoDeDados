@@ -6,19 +6,18 @@
         <meta name="description" content="Sistema de Gestão Acadêmica para alunos.">
         <meta name="keywords" content="gestão acadêmica, matrícula, histórico escolar">
         <meta name="author" content="SysCad">
-        <title>Menu Principal - SysCad</title>
+        <title>Grade Curricular</title>
 
         {% load static %}
         <link rel="stylesheet" href="{% static 'student/css/home.css' %}">
     </head>
-    <body>
-        <!-- Header section -->
-        <header class="header">
-            <img src="{% static 'student/images/uece-logo.png' %}" alt="Example Image">
 
+    <body>
+        <header class="header">
+            <img src="{% static 'student/images/uece-logo.png' %}" alt="Logo UECE">
             <p>Bem-vindo, {{ student.get_first_name }} </p>
         </header>
-
+    
         <nav class="navigation-bar">
             <ul>
                 <li><a href="{% url 'student_home' %}">Home</a></li>
@@ -29,12 +28,11 @@
                 <li><a href="{% url 'edit_student' %}">Dados Pessoais</a></li>
             </ul>
         </nav>
-
+    
         <main>
             <section class="enrolled-subjects">
-
-                <h3 class="title">Disciplinas matriculadas</h3>
-
+                <h3 class="title">Disciplinas do Curso</h4>
+    
                 <table id="student-info-table">
                     <tbody>
                         <tr>
@@ -47,40 +45,40 @@
                         </tr>
                     </tbody>
                 </table>
-
+    
                 <div class="container-table">
-                    <table class="table table-bordered table-strip">
+                    {% if messages %}
+                    <div>
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            <p>{{ message }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+    
+                    <!-- Tabela para exibir as disciplinas associadas ao curso do estudante -->
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>Disciplina</th>
-                                <th>Professor</th>
-                                <th>Horário</th>
-                                <th>Dias</th>
+                                <th>Código</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for class in student.classes.all %}
+                            {% for subject in subjects %}
                             <tr>
-                                <td>{{ class.subject }}</td>
-                                <td>{{ class.professor.name }}</td>
-                                <td>{{ class.start_time }} - {{ class.end_time }}</td>
-                                <td>
-                                    {% for day in class.days_of_week.all %}
-                                    {{ day.get_name_display }}{% if not forloop.last %}, {% endif %}
-                                    {% endfor %}
-                                </td>
+                                <td>{{ subject.name }}</td>
+                                <td>{{ subject.id }}</td>
                             </tr>
                             {% empty %}
                             <tr>
-                                <td colspan="4">Nenhuma disciplina encontrada.</td>
+                                <td colspan="2">Nenhuma disciplina disponível no momento.</td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
-                    <form method="POST">
-                        {% csrf_token %}
-                        <button type="submit" class="btn">Sair</button>
-                    </form>
+                </div>
             </section>
         </main>
     </body>
