@@ -81,7 +81,10 @@ def edit_professor(request):
                 "birth_date": professor.birth_date,
             }
         )
-    return render(request, "professor/edit_info.html", {"form": form})
+    return render(request, "professor/edit_info.html", {
+        "form": form,
+        "professor": professor
+        })
 
 @login_required
 def register_in_class(request):
