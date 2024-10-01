@@ -85,37 +85,36 @@ def edit_professor(request):
 
 @login_required
 def register_in_class(request):
-    professor = get_logged_in_professor(request)
-    try:
-        # Obter o professor logado
-        professor = Professor.objects.get(user=request.user)
-        
-        if request.method == "POST":
-            class_id = request.POST.get('class_id')
-            class_instance = Classes.objects.get(id=class_id)
+    professor = Professor.objects.get(user=request.user)
+    classes = Classes.objects.all()
 
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            try:
+                selected_classes = request.POST.getlist("classes")
 
-            # Verificar se o professor já está atribuído a outra turma
-            if class_instance.professor:
-                messages.error(request, "Esta turma já tem um professor atribuído.")
-            else:
-                # Atribuir o professor à turma
-                class_instance.professor = professor
-                class_instance.save()
-                messages.success(request, f"Você foi cadastrado na turma {class_instance} com sucesso.")
-                return redirect('register_in_class')  # Redirecionar após o cadastro
+                if not selected_classes:
+                    messages.error(request, "Nenhuma turma selecionada")
+                    return redirect("register_in_class")
 
-        # Obter todas as turmas disponíveis
-        available_classes = Classes.objects.filter(professor__isnull=True)
-        
-        return render(request, 'professor/register_in_class.html', {
-            'available_classes': available_classes,
-            'professor': professor
-            })
-    
-    except Professor.DoesNotExist:
-        messages.error(request, "Professor não encontrado.")
-        return redirect('login')
+                for class_id in selected_classes:
+                    class_instance = Classes.objects.get(id=class_id)
+
+                    professor.classes.add(class_instance)
+
+                messages.success(request, "Turmas matriculadas com sucesso!")
+                return redirect("register_in_class")
+
+            except Professor.DoesNotExist:
+                messages.error(request, "Estudante não encontrado")
+                return redirect("login")
+
+            except Classes.DoesNotExist:
+                messages.error(request, "Uma ou mais turmas não existem")
+                return redirect("register_in_class")
+
+    return render(request, "professor/register_in_class.html", {"classes": classes, "professor": professor})
+
 
 @login_required
 def view_current_classes(request):
@@ -130,8 +129,6 @@ def view_current_classes(request):
         'professor': professor,  
         'current_classes': current_classes
     })
-
-
 
 @login_required
 def view_students_in_class(request, class_id):
