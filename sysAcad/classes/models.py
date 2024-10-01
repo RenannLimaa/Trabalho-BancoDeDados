@@ -31,7 +31,7 @@ class Classes(models.Model):
     days_of_week = models.ManyToManyField(Day, related_name="classes")
 
     subject = models.ForeignKey("subject.Subject", on_delete=models.CASCADE, related_name="classes")
-    professor = models.ForeignKey("professor.Professor", on_delete=models.CASCADE, related_name="classes")
+    professor = models.ForeignKey("professor.Professor", on_delete=models.CASCADE, related_name="classes", null=True, blank=True)
 
     def clean(self):
         if self.start_time >= self.end_time:
