@@ -1,6 +1,6 @@
 from django.urls import path
-from . import views
-
+from professor import views
+from authentication.views import user_login
 urlpatterns = [
     path('home/', views.home, name='professor_home'),
     path('remove_professor/', views.remove_professor, name='remove_professor'),

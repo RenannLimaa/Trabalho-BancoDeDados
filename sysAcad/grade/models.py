@@ -5,6 +5,7 @@ class Grade(models.Model):
     id = models.AutoField(primary_key=True)
     student = models.ForeignKey("student.Student", related_name='notas', on_delete=models.CASCADE)
     subject = models.ForeignKey("subject.Subject", related_name='notas', on_delete=models.CASCADE)
+
     grade1 = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     grade2 = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     grade3 = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)

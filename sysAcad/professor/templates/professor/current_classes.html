@@ -1,52 +1,71 @@
-{% block 'body' %}
-<h1>Minhas Turmas</h1>
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Sistema de Gestão Acadêmica para alunos.">
+        <meta name="keywords" content="gestão acadêmica, matrícula, histórico escolar">
+        <meta name="author" content="SysCad">
+        <title>Menu Principal - SysCad</title>
 
-{% if messages %}
-    <div class="alert alert-info">
-        {% for message in messages %}
-            {{ message }}
-        {% endfor %}
-    </div>
-{% endif %}
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'professor/css/professor_classes.css' %}">
+    </head>
+    <body>
+        <header class="header">
+            <img src="{% static 'professor/images/uece-logo.png' %}" alt="Example Image">
 
-{% if current_classes %}
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Disciplina</th>
-                <th>Horário</th>
-                <th>Sala</th>
-                <th>Vagas</th>
-                <th>Alunos Matriculados</th>
-                <th>Estudantes</th>
-                <th>Ações</th> 
-            </tr>
-        </thead>
-        <tbody>
-            {% for class in current_classes %}
-                <tr>
-                    <td>{{ class.subject.name }}</td>
-                    <td>{{ class.schedule }}</td>
-                    <td>{{ class.room }}</td>
-                    <td>{{ class.seat_count }}</td>
-                    <td>{{ class.students.count }}</td>
-                    <td>
-                        <a href="{% url 'view_students_in_class' class.id %}" class="btn btn-primary">Ver Estudantes</a>
-                    </td>
-                    <td>
-                        <form method="post" action="{% url 'complete_class' class.id %}" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-success" onclick="return confirm('Tem certeza que deseja concluir esta turma?');">
-                                Concluir Turma
-                            </button>
-                        </form>
-                    </td> 
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <p>Você não está atualmente atribuído a nenhuma turma.</p>
-{% endif %}
-<a href="{% url 'professor_home' %}" class="btn btn-primary">Voltar</a>
-{% endblock %}
+            <p>Bem-vindo, {{ professor.get_first_name }} </p>
+        </header>
+
+        <nav class="navigation-bar">
+            <ul>
+                <li><a href="{% url 'professor_home'%}" class="btn">Home</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <section class="enrolled-subjects">
+
+                <h3 class="title">Minhas Turmas</h3>
+
+                <table id="student-info-table">
+                    <tbody>
+                        <tr>
+                            <td class="bold">Professor:</td>
+                            <td class="uppercase">{{ professor.get_first_name }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="container-table">
+                    <table class="table table-bordered table-strip">
+                        <thead>
+                            <tr>
+                                <th>Disciplina</th>
+                                <th>Horário</th>
+                                <th>Sala</th>
+                                <th>Vagas</th>
+                                <th>Alunos Matriculados</th>
+                                <th>Estudantes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for class in current_classes %}
+                                <tr>
+                                    <td>{{ class.subject.name }}</td>
+                                    <td>{{ class.start_time }} - {{ class.end_time }}</td>
+                                    <td>{{ class.classroom }}</td>
+                                    <td>{{ class.vacancies }}</td>
+                                    <td>{{ class.students.count }}</td>
+                                    <td>
+                                        <a href="{% url 'view_students_in_class' class.id %}" class="btn btn-primary">Ver Estudantes</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+            </section>
+        </main>
+    </body>
+</html>

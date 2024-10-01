@@ -33,7 +33,6 @@ class Classes(models.Model):
     subject = models.ForeignKey("subject.Subject", on_delete=models.CASCADE, related_name="classes")
     professor = models.ForeignKey("professor.Professor", on_delete=models.CASCADE, related_name="classes")
 
-
     def clean(self):
         if self.start_time >= self.end_time:
             raise ValidationError(_('O horário de início deve ser antes do horário de término.'))
@@ -42,23 +41,7 @@ class Classes(models.Model):
         verbose_name = "Class"
         verbose_name_plural = "Classes"
     
-    def clean(self):
-        # Verificar se o horário de início é antes do término
-        if self.start_time >= self.end_time:
-            raise ValidationError(_('O horário de início deve ser antes do horário de término.'))
-
-        # Procurar por conflitos de horário para turmas não concluídas
-        conflicting_classes = Classes.objects.filter(
-            classroom=self.classroom,
-            start_time__lt=self.end_time,
-            end_time__gt=self.start_time,
-        ).exclude(id=self.id)  # Exclui a própria turma, caso esteja sendo editada
-
-        if conflicting_classes.exists():
-            raise ValidationError(_('Já existe uma turma não concluída com conflito de horário nesta sala de aula.'))
-            
     def all_grades_assigned(self):
-        # Verifica se todos os alunos têm notas atribuídas
         students = self.students.all()
         for student in students:
             grades = Grade.objects.filter(student=student, subject=self.subject)
