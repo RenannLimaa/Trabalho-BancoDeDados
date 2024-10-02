@@ -23,7 +23,7 @@ def home(request):
     return render(request, "professor/home.html", {"professor": professor})
 
 def remove_professor(request):
-    if request.method == "POST":
+    if request.method == "GET":
         try:
             professor = Professor.objects.get(user=request.user)
             user = professor.user

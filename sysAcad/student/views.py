@@ -23,7 +23,7 @@ def student_home(request):
 
 @login_required
 def remove_student(request):
-    if request.method == "POST":
+    if request.method == "GET":
         try:
             student = get_object_or_404(Student, user=request.user)
             user = student.user
