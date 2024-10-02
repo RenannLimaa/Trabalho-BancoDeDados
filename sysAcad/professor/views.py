@@ -67,7 +67,7 @@ def edit_professor(request):
             login(request, user)
 
             messages.success(request, "Informações atualizadas com sucesso.")
-            return redirect(reverse("professor_home"))
+            return redirect(reverse("edit_professor"))
 
         else:
             messages.error(request, "Erro ao atualizar informações")

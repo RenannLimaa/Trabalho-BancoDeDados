@@ -170,3 +170,7 @@ h1 {
     background-color: #c9302c;
 }
 
+.alert {
+    color: #4CAF50;
+    font-weight: bold;
+}
