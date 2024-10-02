@@ -1,0 +1,317 @@
+[
+    {
+        "model": "subject.subject",
+        "pk": 1,
+        "fields": {
+            "name": "Matemática Aplicada",
+            "vacancies": 40,
+            "course": 1
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 2,
+        "fields": {
+            "name": "Programação I",
+            "vacancies": 40,
+            "course": 1
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 3,
+        "fields": {
+            "name": "Arquitetura de Computadores",
+            "vacancies": 40,
+            "course": 1
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 4,
+        "fields": {
+            "name": "Algoritmos",
+            "vacancies": 40,
+            "course": 1
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 5,
+        "fields": {
+            "name": "Engenharia de Software",
+            "vacancies": 40,
+            "course": 1
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 6,
+        "fields": {
+            "name": "Sistemas Operacionais",
+            "vacancies": 40,
+            "course": 1
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 7,
+        "fields": {
+            "name": "Inteligência Artificial",
+            "vacancies": 40,
+            "course": 1
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 8,
+        "fields": {
+            "name": "Gestão de Pessoas",
+            "vacancies": 35,
+            "course": 2
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 9,
+        "fields": {
+            "name": "Finanças Corporativas",
+            "vacancies": 35,
+            "course": 2
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 10,
+        "fields": {
+            "name": "Marketing",
+            "vacancies": 35,
+            "course": 2
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 11,
+        "fields": {
+            "name": "Comportamento Organizacional",
+            "vacancies": 35,
+            "course": 2
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 12,
+        "fields": {
+            "name": "Planejamento Estratégico",
+            "vacancies": 35,
+            "course": 2
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 13,
+        "fields": {
+            "name": "Gestão de Projetos",
+            "vacancies": 35,
+            "course": 2
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 14,
+        "fields": {
+            "name": "Empreendedorismo",
+            "vacancies": 35,
+            "course": 2
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 15,
+        "fields": {
+            "name": "Direito Constitucional",
+            "vacancies": 50,
+            "course": 3
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 16,
+        "fields": {
+            "name": "Direito Penal",
+            "vacancies": 50,
+            "course": 3
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 17,
+        "fields": {
+            "name": "Direito Civil",
+            "vacancies": 50,
+            "course": 3
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 18,
+        "fields": {
+            "name": "Teoria Geral do Direito",
+            "vacancies": 50,
+            "course": 3
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 19,
+        "fields": {
+            "name": "Direito Empresarial",
+            "vacancies": 50,
+            "course": 3
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 20,
+        "fields": {
+            "name": "Direito Tributário",
+            "vacancies": 50,
+            "course": 3
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 21,
+        "fields": {
+            "name": "Direito Internacional",
+            "vacancies": 50,
+            "course": 3
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 22,
+        "fields": {
+            "name": "Psicologia Clínica",
+            "vacancies": 30,
+            "course": 4
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 23,
+        "fields": {
+            "name": "Psicologia Organizacional",
+            "vacancies": 30,
+            "course": 4
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 24,
+        "fields": {
+            "name": "Psicologia Social",
+            "vacancies": 30,
+            "course": 4
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 25,
+        "fields": {
+            "name": "Neuropsicologia",
+            "vacancies": 30,
+            "course": 4
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 26,
+        "fields": {
+            "name": "Psicopatologia",
+            "vacancies": 30,
+            "course": 4
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 27,
+        "fields": {
+            "name": "Terapia Cognitivo-Comportamental",
+            "vacancies": 30,
+            "course": 4
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 28,
+        "fields": {
+            "name": "Psicanálise",
+            "vacancies": 30,
+            "course": 4
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 29,
+        "fields": {
+            "name": "Cálculo Diferencial",
+            "vacancies": 40,
+            "course": 5
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 30,
+        "fields": {
+            "name": "Resistência dos Materiais",
+            "vacancies": 40,
+            "course": 5
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 31,
+        "fields": {
+            "name": "Mecânica dos Solos",
+            "vacancies": 40,
+            "course": 5
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 32,
+        "fields": {
+            "name": "Concreto Armado",
+            "vacancies": 40,
+            "course": 5
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 33,
+        "fields": {
+            "name": "Estruturas Metálicas",
+            "vacancies": 40,
+            "course": 5
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 34,
+        "fields": {
+            "name": "Hidráulica",
+            "vacancies": 40,
+            "course": 5
+        }
+    },
+    {
+        "model": "subject.subject",
+        "pk": 35,
+        "fields": {
+            "name": "Planejamento Urbano",
+            "vacancies": 40,
+            "course": 5
+        }
+    }
+]

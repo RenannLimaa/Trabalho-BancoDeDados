@@ -1,0 +1,138 @@
+[
+    {
+        "model": "course.course",
+        "pk": 1,
+        "fields": {
+            "name": "Ciencia de Computação",
+            "duration": "5 anos"
+        }
+    },
+    {
+        "model": "course.course",
+        "pk": 2,
+        "fields": {
+            "name": "Administração",
+            "duration": "4 anos"
+        }
+    },
+    {
+        "model": "course.course",
+        "pk": 3,
+        "fields": {
+            "name": "Direito",
+            "duration": "5 anos"
+        }
+    },
+    {
+        "model": "course.course",
+        "pk": 4,
+        "fields": {
+            "name": "Psicologia",
+            "duration": "5 anos"
+        }
+    },
+    {
+        "model": "course.course",
+        "pk": 5,
+        "fields": {
+            "name": "Engenharia Civil",
+            "duration": "5 anos"
+        }
+    },
+    {
+        "model": "course.course",
+        "pk": 6,
+        "fields": {
+            "name": "Ciências Contábeis",
+            "duration": "4 anos"
+        }
+    },
+    {
+        "model": "course.course",
+        "pk": 7,
+        "fields": {
+            "name": "Arquitetura e Urbanismo",
+            "duration": "5 anos"
+        }
+    },
+    {
+        "model": "course.course",
+        "pk": 8,
+        "fields": {
+            "name": "Medicina",
+            "duration": "6 anos"
+        }
+    },
+    {
+        "model": "course.course",
+        "pk": 9,
+        "fields": {
+            "name": "Enfermagem",
+            "duration": "5 anos"
+        }
+    },
+    {
+        "model": "course.course",
+        "pk": 10,
+        "fields": {
+            "name": "Farmácia",
+            "duration": "5 anos"
+        }
+    },
+    {
+        "model": "course.course",
+        "pk": 11,
+        "fields": {
+            "name": "Fisioterapia",
+            "duration": "5 anos"
+        }
+    },
+    {
+        "model": "course.course",
+        "pk": 12,
+        "fields": {
+            "name": "Educação Física",
+            "duration": "4 anos"
+        }
+    },
+    {
+        "model": "course.course",
+        "pk": 13,
+        "fields": {
+            "name": "Biomedicina",
+            "duration": "4 anos"
+        }
+    },
+    {
+        "model": "course.course",
+        "pk": 14,
+        "fields": {
+            "name": "Engenharia Elétrica",
+            "duration": "5 anos"
+        }
+    },
+    {
+        "model": "course.course",
+        "pk": 15,
+        "fields": {
+            "name": "Engenharia Mecânica",
+            "duration": "5 anos"
+        }
+    },
+    {
+        "model": "course.course",
+        "pk": 16,
+        "fields": {
+            "name": "Engenharia de Produção",
+            "duration": "5 anos"
+        }
+    },
+    {
+        "model": "course.course",
+        "pk": 17,
+        "fields": {
+            "name": "Jornalismo",
+            "duration": "4 anos"
+        }
+    }
+]

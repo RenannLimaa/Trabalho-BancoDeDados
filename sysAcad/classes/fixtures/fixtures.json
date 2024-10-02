@@ -1,0 +1,156 @@
+[
+    {
+        "model": "classes.day",
+        "pk": 1,
+        "fields": {
+            "name": "Monday"
+        }
+    },
+    {
+        "model": "classes.day",
+        "pk": 2,
+        "fields": {
+            "name": "Tuesday"
+        }
+    },
+    {
+        "model": "classes.day",
+        "pk": 3,
+        "fields": {
+            "name": "Wednesday"
+        }
+    },
+    {
+        "model": "classes.day",
+        "pk": 4,
+        "fields": {
+            "name": "Thursday"
+        }
+    },
+    {
+        "model": "classes.day",
+        "pk": 5,
+        "fields": {
+            "name": "Friday"
+        }
+    },
+    {
+        "model": "classes.day",
+        "pk": 6,
+        "fields": {
+            "name": "Saturday"
+        }
+    },
+    {
+        "model": "classes.day",
+        "pk": 7,
+        "fields": {
+            "name": "Sunday"
+        }
+    },
+    {
+        "model": "classes.classes",
+        "pk": 1,
+        "fields": {
+            "classroom": "Sala 101",
+            "vacancies": 40,
+            "start_time": "08:00:00",
+            "end_time": "10:00:00",
+            "days_of_week": [
+                1,
+                3
+            ],
+            "subject": 1
+        }
+    },
+    {
+        "model": "classes.classes",
+        "pk": 2,
+        "fields": {
+            "classroom": "Sala 102",
+            "vacancies": 35,
+            "start_time": "10:00:00",
+            "end_time": "12:00:00",
+            "days_of_week": [
+                2,
+                4
+            ],
+            "subject": 2
+        }
+    },
+    {
+        "model": "classes.classes",
+        "pk": 3,
+        "fields": {
+            "classroom": "Sala 103",
+            "vacancies": 40,
+            "start_time": "13:00:00",
+            "end_time": "15:00:00",
+            "days_of_week": [
+                1,
+                5
+            ],
+            "subject": 3
+        }
+    },
+    {
+        "model": "classes.classes",
+        "pk": 4,
+        "fields": {
+            "classroom": "Sala 201",
+            "vacancies": 30,
+            "start_time": "08:00:00",
+            "end_time": "10:00:00",
+            "days_of_week": [
+                1,
+                3
+            ],
+            "subject": 4
+        }
+    },
+    {
+        "model": "classes.classes",
+        "pk": 5,
+        "fields": {
+            "classroom": "Sala 202",
+            "vacancies": 30,
+            "start_time": "10:00:00",
+            "end_time": "12:00:00",
+            "days_of_week": [
+                2,
+                4
+            ],
+            "subject": 5
+        }
+    },
+    {
+        "model": "classes.classes",
+        "pk": 6,
+        "fields": {
+            "classroom": "Sala 203",
+            "vacancies": 25,
+            "start_time": "13:00:00",
+            "end_time": "15:00:00",
+            "days_of_week": [
+                1,
+                5
+            ],
+            "subject": 6
+        }
+    },
+    {
+        "model": "classes.classes",
+        "pk": 7,
+        "fields": {
+            "classroom": "Sala 301",
+            "vacancies": 40,
+            "start_time": "08:00:00",
+            "end_time": "10:00:00",
+            "days_of_week": [
+                3,
+                5
+            ],
+            "subject": 7
+        }
+    }
+]
