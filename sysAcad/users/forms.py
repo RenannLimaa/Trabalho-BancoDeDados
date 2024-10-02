@@ -61,7 +61,15 @@ class StudentProfessorForm(forms.Form):
         widget=forms.DateInput(attrs={
             'type': 'date',
         })
-    )
+    ) 
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # If role is provided in POST data
+        role = self.data.get("role")
+        if role == "professor":
+            self.fields["course"].required = False  # Make course not required for professors
+            self.fields["course"].widget.attrs['disabled'] = 'disabled'  # Disable the course field
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -71,14 +79,26 @@ class StudentProfessorForm(forms.Form):
 
     def clean(self):
         cleaned_data = super().clean()
+        role = cleaned_data.get("role")
+        course = cleaned_data.get("course")
         password = cleaned_data.get("password")
         password_confirm = cleaned_data.get("password_confirm")
 
-        if password != password_confirm:
+        # Check if passwords match
+        if password and password_confirm and password != password_confirm:
             raise forms.ValidationError("Passwords do not match")
 
-        return cleaned_data
+        # Handle 'course' field based on the selected role
+        if role == "professor":
+            # Make course optional for professors
+            self.fields['course'].required = False
+            cleaned_data['course'] = None  # Set course to None for professors
+        else:
+            # For students, ensure the course is selected
+            if not course:
+                self.add_error('course', "Selecione um curso.")
 
+        return cleaned_data
 
 class LoginForm(forms.Form):
     ROLE_CHOICES = [

@@ -91,5 +91,35 @@
             </form>
             <p> Já possui uma conta? <a href={% url 'login' %}>Entre</a></p>
         </div>
+
+        <!-- JavaScript to disable the "Curso" field for professors -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Get the role radio buttons and the course field
+                const roleRadios = document.querySelectorAll('input[name="role"]');
+                const courseField = document.getElementById('{{ form.course.id_for_label }}');
+
+                function toggleCourseField() {
+                    // Get the selected role value
+                    const selectedRole = document.querySelector('input[name="role"]:checked').value;
+
+                    if (selectedRole === 'professor') {
+                        // Disable the "Curso" field for professors
+                        courseField.setAttribute('disabled', 'disabled');
+                    } else {
+                        // Enable the "Curso" field for students
+                        courseField.removeAttribute('disabled');
+                    }
+                }
+
+                // Initial check when the page is loaded
+                toggleCourseField();
+
+                // Add event listeners to the radio buttons to handle role change
+                roleRadios.forEach(radio => {
+                    radio.addEventListener('change', toggleCourseField);
+                });
+            });
+        </script>
     </body>
 </html>

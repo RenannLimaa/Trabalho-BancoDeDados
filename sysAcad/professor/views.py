@@ -89,8 +89,9 @@ def edit_professor(request):
 @login_required
 def register_in_class(request):
     professor = Professor.objects.get(user=request.user)
-    classes = Classes.objects.all()
+    classes = Classes.objects.filter(professor__isnull=True)
 
+    print(classes)
     if request.method == "POST":
         if request.user.is_authenticated:
             try:
