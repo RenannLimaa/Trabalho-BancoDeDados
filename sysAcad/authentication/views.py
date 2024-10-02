@@ -6,6 +6,7 @@ from student.models import Student
 from users.forms import LoginForm, StudentProfessorForm
 from users.models import User
 from django.contrib import messages
+from datetime import date, timedelta
 
 
 def user_register(request):
@@ -19,6 +20,14 @@ def user_register(request):
             password = form.cleaned_data.get("password")
             birth_date = form.cleaned_data.get("birth_date")
             course = form.cleaned_data.get("course")
+
+            # Verificando se a data de nascimento é maior ou igual a 16 anos
+            today = date.today()
+            age = today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
+
+            if age < 16:
+                form.add_error('birth_date', 'Você deve ter pelo menos 16 anos para se registrar.')
+                return render(request, "authentication/signup.html", {"form": form})  # Substitua "template_name.html" pelo nome do seu template
 
             if role == "student":
                 user = User.objects.create_user(
@@ -55,11 +64,10 @@ def user_register(request):
                 )
                 professor.save()
 
-            return redirect(reverse("login"))
     else:
-        form = StudentProfessorForm()
+        form = StudentProfessorForm()  # Cria um novo formulário para o GET
 
-    return render(request, "authentication/signup.html", {"form": form})
+    return render(request, "authentication/signup.html", {"form": form})  # Substitua "template_name.html" pelo nome do seu template
 
 
 def user_login(request):
