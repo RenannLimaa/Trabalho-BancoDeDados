@@ -63,13 +63,6 @@ class StudentProfessorForm(forms.Form):
         })
     ) 
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        # If role is provided in POST data
-        role = self.data.get("role")
-        if role == "professor":
-            self.fields["course"].required = False  # Make course not required for professors
-            self.fields["course"].widget.attrs['disabled'] = 'disabled'  # Disable the course field
 
     def clean_email(self):
         email = self.cleaned_data.get('email')

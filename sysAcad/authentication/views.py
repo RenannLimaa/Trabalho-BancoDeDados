@@ -64,6 +64,8 @@ def user_register(request):
                 )
                 professor.save()
 
+        return redirect(reverse("login"))  # Substitua "template_name.html" pelo nome do seu template
+
     else:
         form = StudentProfessorForm()  # Cria um novo formulário para o GET
 
